@@ -1,8 +1,8 @@
 class Balle extends Phaser.GameObjects.Sprite{
     constructor(scene) {
 
-        let x = scene.player.x;
-        let y = scene.player.y;
+        let x = scene.player.player.x;
+        let y = scene.player.player.y;
 
 
         super(scene,x,y,"balle");
@@ -11,7 +11,7 @@ class Balle extends Phaser.GameObjects.Sprite{
 
         scene.physics.world.enableBody(this)
         this.setDisplaySize(10,10);
-        this.body.setAllowGravity(false);
+        this.body.setAllowGravity(true);
 
         scene.projectiles.add(this);
 
@@ -28,13 +28,13 @@ console.log(this.scene.target)
         if(this.y < 0 ){
             this.destroy();
         }
-        if(this.y > 300 ){
+        if(this.y > 3000 ){
             this.destroy();
         }
         if(this.x < 0 ){
             this.destroy();
         }
-        if(this.x > 1000 ){
+        if(this.x > 10000 ){
             this.destroy();
         }
 

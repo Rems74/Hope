@@ -34,9 +34,9 @@ class scene extends Phaser.Scene {
 
         this.player = new Player(this)
 
-        this.cameras.main.startFollow(this.player.player,false);
 
-        if(this.Pballe){
+
+        if(this.Pballe===true){
             this.input.on('pointerdown', function (pointer) {
                 this.tir();
                 console.log(this.chargeur);
@@ -48,11 +48,14 @@ class scene extends Phaser.Scene {
 
         this.projectiles = this.add.group();
 
-        this.target = this.physics.add.sprite(450, 0,'circleB').setOrigin(0, 0);
+        this.target = this.physics.add.sprite(game.input.mousePointer.x, game.input.mousePointer.y,'circleB').setOrigin(0, 0);
         this.target.setDisplaySize(10,10);
         this.target.body.setAllowGravity(false);
         this.target.setImmovable(false);
-        this.target.setVisible(false);
+        this.target.setVisible(true);
+
+
+        this.cameras.main.startFollow(this.player.player,false);
     }
 
 
@@ -65,11 +68,9 @@ class scene extends Phaser.Scene {
 
     update() {
 
-
         switch (true) {
             case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
                 this.player.jump()
-                console.log("oui")
                 break;
             case this.cursors.left.isDown:
                 this.player.moveLeft()
@@ -89,8 +90,19 @@ class scene extends Phaser.Scene {
 
         this.Pballe = this.chargeur > 0;
 
-        this.target.x = game.input.mousePointer.x;
-        this.target.y = game.input.mousePointer.y;
+        this.target.x = this.cameras.main.x
+
+        this.target.y = this.cameras.main.y /*+ game.input.mousePointer.y */;
+
+        this.target.x = this.player.player.x + game.input.mousePointer.x - (1920/2)
+        this.target.y = this.player.player.y + game.input.mousePointer.y - (1080/2)
+
+        console.log("souri")
+        console.log(game.input.mousePointer.y)
+        console.log(game.input.mousePointer.x)
+        console.log("target")
+        console.log(this.target.y)
+        console.log(this.target.x)
 
     }
 }
