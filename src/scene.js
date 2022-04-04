@@ -9,13 +9,16 @@ class scene extends Phaser.Scene {
 
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
+        this.load.image('balle','assets/square.png');
+        this.load.image('circleB','assets/circleB.png');
     }
 
 
     create() {
 
 
-
+        this.chargeur = 5;
+        this.Pballe = true ;
 
 
         const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
@@ -32,10 +35,36 @@ class scene extends Phaser.Scene {
         this.player = new Player(this)
 
         this.cameras.main.startFollow(this.player.player,false);
+
+        if(this.Pballe){
+            this.input.on('pointerdown', function (pointer) {
+                this.tir();
+                console.log(this.chargeur);
+            }, this);
+        }else {
+            console.log("Plus de balle")
+
+        }
+
+        this.projectiles = this.add.group();
+
+        this.target = this.physics.add.sprite(450, 0,'circleB').setOrigin(0, 0);
+        this.target.setDisplaySize(10,10);
+        this.target.body.setAllowGravity(false);
+        this.target.setImmovable(false);
+        this.target.setVisible(false);
+    }
+
+
+    tir() {let me = this;
+        this.chargeur -= 1;
+        this.balle = new Balle(this);
+
     }
 
 
     update() {
+
 
         switch (true) {
             case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
@@ -50,11 +79,18 @@ class scene extends Phaser.Scene {
                 break;
             default:
                 this.player.stop();
+
         }
 
+        for(var i = 0; i < this.projectiles.getChildren().length; i++){
+            var tir = this.projectiles.getChildren()[i];
+            tir.update();
+        }
 
+        this.Pballe = this.chargeur > 0;
 
-
+        this.target.x = game.input.mousePointer.x;
+        this.target.y = game.input.mousePointer.y;
 
     }
 }
