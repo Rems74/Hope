@@ -32,6 +32,7 @@ class Player {
             repeat:-1,
 
         });
+
     }
 
     jump(){

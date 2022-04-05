@@ -1,5 +1,6 @@
 class scene extends Phaser.Scene {
 
+
     preload() {
         this.load.image('background', 'assets/images/background.png');
         this.load.image('spike', 'assets/images/spike.png');
@@ -11,6 +12,7 @@ class scene extends Phaser.Scene {
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
         this.load.image('balle','assets/square.png');
         this.load.image('circleB','assets/circleB.png');
+        this.load.image('mask','assets/mask.png')
     }
 
 
@@ -56,6 +58,27 @@ class scene extends Phaser.Scene {
 
 
         this.cameras.main.startFollow(this.player.player,false);
+
+        //Lumière
+
+        this.mask=this.add.sprite(this.player.player.x,this.player.player.y,'mask')
+
+        /*const spotlight = this.make.sprite({
+            x:this.player.player.x,
+            y:this.player.player.y,
+            key: 'mask',
+            add: false
+        });
+
+        backgroundImage.mask = new Phaser.Display.Masks.BitmapMask(this, spotlight);
+
+        this.input.on('light' ),{
+
+            spotlight.x : this.player.player.x;
+            spotlight.y : this.player.player.y;
+
+        };*/
+
     }
 
 
@@ -103,6 +126,10 @@ class scene extends Phaser.Scene {
         console.log("target")
         console.log(this.target.y)
         console.log(this.target.x)
+
+        this.mask.x = this.player.player.x
+        this.mask.y = this.player.player.y
+
 
     }
 }
