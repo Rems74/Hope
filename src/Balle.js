@@ -34,7 +34,7 @@ console.log(this.scene.target)
         if(this.x < 0 ){
             this.destroy();
         }
-        if(this.x > 10000 ){
+        if(this.x > 3000 ){
             this.destroy();
         }
 

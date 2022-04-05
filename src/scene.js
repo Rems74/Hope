@@ -23,8 +23,11 @@ class scene extends Phaser.Scene {
         this.Pballe = true ;
 
 
-        const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
-        backgroundImage.setScale(1, 0.8);
+        const backgroundImage = this.add.image(0, 0, 'background').setAlpha(0.2).setOrigin(0, 0);
+        backgroundImage.setScale(5, 5)
+
+        backgroundImage.setPipeline('Light2D');
+
         const map = this.make.tilemap({key: 'map'});
 
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
@@ -59,9 +62,15 @@ class scene extends Phaser.Scene {
 
         this.cameras.main.startFollow(this.player.player,false);
 
-        //Lumière
+        //Lumières
 
-        this.mask=this.add.sprite(this.player.player.x,this.player.player.y,'mask')
+        //this.mask=this.add.sprite(this.player.player.x,this.player.player.y,'mask')
+
+        this.lights.enable().setAmbientColor(0x555555);
+
+        var spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 230).setIntensity(0.5);
+        //var spotlight = this.lights.addLight(this.target.x, this.target.y, 230).setIntensity(0.5);
+
 
         /*const spotlight = this.make.sprite({
             x:this.player.player.x,
@@ -127,9 +136,11 @@ class scene extends Phaser.Scene {
         console.log(this.target.y)
         console.log(this.target.x)
 
-        this.mask.x = this.player.player.x
-        this.mask.y = this.player.player.y
+        //this.mask.x = this.player.player.x
+        //this.mask.y = this.player.player.y
 
+        this.lights.addLight(this.player.player.x, this.player.player.y, 230).setIntensity(0.5);
+        //this.lights.addLight(this.target.x, this.target.y, 100).setIntensity(0.5);
 
     }
 }
