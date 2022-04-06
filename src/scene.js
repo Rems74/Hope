@@ -13,33 +13,33 @@ class scene extends Phaser.Scene {
         this.load.image('balle','assets/square.png');
         this.load.image('circleB','assets/circleB.png');
         this.load.image('mask','assets/mask.png')
+        this.load.image('save', 'assets/images/Save.png');
     }
 
 
     create() {
 
+        this.currentSaveX = 0;
+        this.currentSaveY = 0;
 
         this.chargeur = 5;
         this.Pballe = true ;
 
 
         const backgroundImage = this.add.image(0, 0, 'background').setAlpha(0.2).setOrigin(0, 0);
-        backgroundImage.setScale(5, 5)
+        backgroundImage.setScale(2, 0.8)
 
         backgroundImage.setPipeline('Light2D');
-
         const map = this.make.tilemap({key: 'map'});
-
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
         this.platforms = map.createStaticLayer('Sol', tileset);
-
         this.platforms.setCollisionByExclusion(-1, true);
         this.cursors = this.input.keyboard.createCursorKeys();
 
 
         this.player = new Player(this)
 
-
+//Balles
 
         if(this.Pballe===true){
             this.input.on('pointerdown', function (pointer) {
@@ -62,7 +62,7 @@ class scene extends Phaser.Scene {
 
         this.cameras.main.startFollow(this.player.player,false);
 
-        //Lumières
+//Lumières
 
         //this.mask=this.add.sprite(this.player.player.x,this.player.player.y,'mask')
 
@@ -88,12 +88,34 @@ class scene extends Phaser.Scene {
 
         };*/
 
+//Sauvegardes
+
+        this.saves = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
+
+        map.getObjectLayer('Save').objects.forEach((save) => {
+            const saveSprite = this.saves.create(save.x, save.y + 200 - save.height, 'save').setOrigin(0);
+        });
+        this.physics.add.overlap(this.player.player, this.saves, this.sauvegarde, null, this)
+
+
     }
+
 
 
     tir() {let me = this;
         this.chargeur -= 1;
         this.balle = new Balle(this);
+
+    }
+
+    sauvegarde(player, saves) {
+        console.log("current", this.currentSaveX, this.currentSaveY)
+        this.currentSaveX = player.x
+        this.currentSaveY = player.y
+        saves.body.enable = false;
 
     }
 

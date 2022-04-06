@@ -19,9 +19,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\remyp\Documents\GitHub\Hope\src" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\remyp\Documents\GitHub\Hope\assets" />
     </key>
@@ -35,7 +39,8 @@
       <option name="presentableId" value="Default" />
       <updated>1649168847171</updated>
       <workItem from="1649168854664" duration="62000" />
-      <workItem from="1649169174648" duration="9099000" />
+      <workItem from="1649169174648" duration="9260000" />
+      <workItem from="1649262673336" duration="6789000" />
     </task>
     <servers />
   </component>
