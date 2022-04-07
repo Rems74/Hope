@@ -36,6 +36,7 @@ class scene extends Phaser.Scene {
         this.platforms.setCollisionByExclusion(-1, true);
         this.cursors = this.input.keyboard.createCursorKeys();
         backgroundImage.setPipeline('Light2D');
+        this.platforms.setPipeline('Light2D');
 
         this.player = new Player(this)
 
