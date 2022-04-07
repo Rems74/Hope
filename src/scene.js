@@ -65,30 +65,12 @@ class scene extends Phaser.Scene {
 
 //Lumières
 
-        //this.mask=this.add.sprite(this.player.player.x,this.player.player.y,'mask')
-
         this.lights.enable().setAmbientColor(0x555555);
 
         var spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 230).setColor(0xF0AF2F).setIntensity(0.5);
 
-        //var spotlight = this.lights.addLight(this.target.x, this.target.y, 230).setIntensity(0.5);
+        //var spotlight = this.lights.addLight(this.Pballe.Pballe.x, this.Pballe.Pballe.y, 230).setIntensity(0.5);
 
-
-        /*const spotlight = this.make.sprite({
-            x:this.player.player.x,
-            y:this.player.player.y,
-            key: 'mask',
-            add: false
-        });
-
-        backgroundImage.mask = new Phaser.Display.Masks.BitmapMask(this, spotlight);
-
-        this.input.on('light' ),{
-
-            spotlight.x : this.player.player.x;
-            spotlight.y : this.player.player.y;
-
-        };*/
 
 //Sauvegardes
 
@@ -102,12 +84,9 @@ class scene extends Phaser.Scene {
        });
         this.physics.add.overlap(this.player.player, this.saves, this.sauvegarde, null, this)
 
-
-
     }
 
-
-
+    
     tir() {let me = this;
         this.chargeur -= 1;
         this.balle = new Balle(this);
@@ -154,18 +133,15 @@ class scene extends Phaser.Scene {
         this.target.x = this.player.player.x + game.input.mousePointer.x - (1920/2)
         this.target.y = this.player.player.y + game.input.mousePointer.y - (1080/2)
 
-        console.log("souri")
+        /*console.log("souri")
         console.log(game.input.mousePointer.y)
         console.log(game.input.mousePointer.x)
         console.log("target")
         console.log(this.target.y)
-        console.log(this.target.x)
-
-        //this.mask.x = this.player.player.x
-        //this.mask.y = this.player.player.y
+        console.log(this.target.x)*/
 
         this.lights.addLight(this.player.player.x, this.player.player.y, 230).setColor(0xF0AF2F).setIntensity(0.5);
-        //this.lights.addLight(this.target.x, this.target.y, 100).setIntensity(0.5);
+        //this.lights.addLight(this.Pballe.Pballe.x, this.Pballe.Pballe.y, 100).setIntensity(0.5);
 
     }
 }
