@@ -29,13 +29,13 @@ class scene extends Phaser.Scene {
         const backgroundImage = this.add.image(0, 0, 'background').setAlpha(0.2).setOrigin(0, 0);
         backgroundImage.setScale(2, 0.8)
 
-        backgroundImage.setPipeline('Light2D');
+
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
         this.platforms = map.createStaticLayer('Sol', tileset);
         this.platforms.setCollisionByExclusion(-1, true);
         this.cursors = this.input.keyboard.createCursorKeys();
-
+        backgroundImage.setPipeline('Light2D');
 
         this.player = new Player(this)
 
@@ -68,7 +68,8 @@ class scene extends Phaser.Scene {
 
         this.lights.enable().setAmbientColor(0x555555);
 
-        var spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 230).setIntensity(0.5);
+        var spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 230).setColor(0xF0AF2F).setIntensity(0.5);
+
         //var spotlight = this.lights.addLight(this.target.x, this.target.y, 230).setIntensity(0.5);
 
 
@@ -95,10 +96,10 @@ class scene extends Phaser.Scene {
             immovable: true
         });
 
-        map.getObjectLayer('Save').objects.forEach((save) => {
+       /* map.getObjectLayer('Save').objects.forEach((save) => {
             const saveSprite = this.saves.create(save.x, save.y + 200 - save.height, 'save').setOrigin(0);
         });
-        this.physics.add.overlap(this.player.player, this.saves, this.sauvegarde, null, this)
+        this.physics.add.overlap(this.player.player, this.saves, this.sauvegarde, null, this)*/
 
 
     }
@@ -161,7 +162,7 @@ class scene extends Phaser.Scene {
         //this.mask.x = this.player.player.x
         //this.mask.y = this.player.player.y
 
-        this.lights.addLight(this.player.player.x, this.player.player.y, 230).setIntensity(0.5);
+        this.lights.addLight(this.player.player.x, this.player.player.y, 230).setColor(0xF0AF2F).setIntensity(0.5);
         //this.lights.addLight(this.target.x, this.target.y, 100).setIntensity(0.5);
 
     }
