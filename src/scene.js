@@ -2,7 +2,7 @@ class scene extends Phaser.Scene {
 
 
     preload() {
-        this.load.image('background', 'assets/images/background.png');
+        this.load.image('background', 'assets/images/tentative.jpg');
         this.load.image('spike', 'assets/images/spike.png');
         // At last image must be loaded with its JSON
         this.load.atlas('player', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');
@@ -13,6 +13,8 @@ class scene extends Phaser.Scene {
         this.load.image('balle','assets/square.png');
         this.load.image('circleB','assets/circleB.png');
         this.load.image('save', 'assets/images/Save.png');
+        this.load.audio('feu','assets/sons/feu.mp3');
+
     }
 
 
@@ -24,17 +26,22 @@ class scene extends Phaser.Scene {
         this.Pballe = true ;
 
 
-        const backgroundImage = this.add.image(0, 0, 'background').setAlpha(0.2).setOrigin(0, 0);
-        backgroundImage.setScale(2, 0.8)
+        const backgroundImage = this.add.image(0, -800, 'background').setOrigin(0, 0);
+        backgroundImage.setScale(2,2)
+
 
 
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
+        const platforms0 = map.createLayer('Devant', tileset, 0, 200);
         this.platforms = map.createStaticLayer('Sol', tileset);
+        platforms0.setCollisionByExclusion(-1, false);
+        platforms0.scrollFactorX=1.03;//Bushes
         this.platforms.setCollisionByExclusion(-1, true);
         this.cursors = this.input.keyboard.createCursorKeys();
         backgroundImage.setPipeline('Light2D');
         this.platforms.setPipeline('Light2D');
+
 
         this.player = new Player(this)
 
@@ -71,6 +78,7 @@ class scene extends Phaser.Scene {
 
         this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(5);
 
+
         // var spotlight = this.lights.addLight(this.balle.balle.x, this.balle.balle.y, 230).setIntensity(0.5);
 
 
@@ -90,12 +98,15 @@ class scene extends Phaser.Scene {
         this.physics.add.overlap(this.player.player, this.saves, this.sauvegarde, null, this)
 
 
+
     }
 
 
     tir() {let me = this;
         this.chargeur -= 1;
         this.balle = new Balle(this);
+        //this.ballight = this.lights.addLight(this.balle.x, this.balle.y, 100).setColor(0xF0AF2F).setIntensity(3);
+
 
     }
 
@@ -104,14 +115,14 @@ class scene extends Phaser.Scene {
         this.currentSaveX = saves.x
         this.currentSaveY = saves.y
         saves.body.enable = false;
+        this.sound.play('feu');
     }
 
 
     update() {
 
-        this.sl.x = this.currentSaveX;
+        this.sl.x = this.currentSaveX+20;
         this.sl.y = this.currentSaveY;
-
 
 
         switch (true) {
@@ -153,7 +164,8 @@ class scene extends Phaser.Scene {
 
         this.spotlight.x = this.player.player.x;
         this.spotlight.y = this.player.player.y;
-         //this.lights.addLight(this.balle.balle.x, this.balle.balle.y, 100).setIntensity(0.5);
+
+
 
     }
 }
