@@ -86,7 +86,7 @@ class scene extends Phaser.Scene {
 
     }
 
-    
+
     tir() {let me = this;
         this.chargeur -= 1;
         this.balle = new Balle(this);
