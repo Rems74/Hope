@@ -12,13 +12,11 @@ class scene extends Phaser.Scene {
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
         this.load.image('balle','assets/square.png');
         this.load.image('circleB','assets/circleB.png');
-        this.load.image('mask','assets/mask.png')
         this.load.image('save', 'assets/images/Save.png');
     }
 
 
     create() {
-
         this.currentSaveX = 0;
         this.currentSaveY = 0;
 
@@ -67,9 +65,13 @@ class scene extends Phaser.Scene {
 
         this.lights.enable().setAmbientColor(0x555555);
 
-        var spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 230).setColor(0xF0AF2F).setIntensity(0.5);
+        // var neuneu = this.lights.addLight(this.currentSaveX, this.currentSaveY, 230).setColor(0xF0AF2F).setIntensity(0.5);
 
-        //var spotlight = this.lights.addLight(this.Pballe.Pballe.x, this.Pballe.Pballe.y, 230).setIntensity(0.5);
+        this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 230).setColor(0xF0AF2F).setIntensity(5);
+
+        this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(5);
+
+        // var spotlight = this.lights.addLight(this.balle.balle.x, this.balle.balle.y, 230).setIntensity(0.5);
 
 
 //Sauvegardes
@@ -80,9 +82,13 @@ class scene extends Phaser.Scene {
         });
 
        map.getObjectLayer('Save').objects.forEach((save) => {
-            const saveSprite = this.saves.create(save.x, save.y + 200 - save.height, 'save').setOrigin(0);
+            const saveSprite = this.saves.create(save.x, save.y- save.height, 'save').setOrigin(0);
        });
+
+        // this.ui = this.lights.addLight(this.currentSaveX, this.currentSaveY, 230).setColor(0xF0AF2F).setIntensity(0.5).setVisible(true);
+
         this.physics.add.overlap(this.player.player, this.saves, this.sauvegarde, null, this)
+
 
     }
 
@@ -95,14 +101,18 @@ class scene extends Phaser.Scene {
 
     sauvegarde(player, saves) {
         console.log("current", this.currentSaveX, this.currentSaveY)
-        this.currentSaveX = player.x
-        this.currentSaveY = player.y
+        this.currentSaveX = saves.x
+        this.currentSaveY = saves.y
         saves.body.enable = false;
-
     }
 
 
     update() {
+
+        this.sl.x = this.currentSaveX;
+        this.sl.y = this.currentSaveY;
+
+
 
         switch (true) {
             case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
@@ -140,8 +150,10 @@ class scene extends Phaser.Scene {
         console.log(this.target.y)
         console.log(this.target.x)*/
 
-        this.lights.addLight(this.player.player.x, this.player.player.y, 230).setColor(0xF0AF2F).setIntensity(0.5);
-        //this.lights.addLight(this.Pballe.Pballe.x, this.Pballe.Pballe.y, 100).setIntensity(0.5);
+
+        this.spotlight.x = this.player.player.x;
+        this.spotlight.y = this.player.player.y;
+         //this.lights.addLight(this.balle.balle.x, this.balle.balle.y, 100).setIntensity(0.5);
 
     }
 }
