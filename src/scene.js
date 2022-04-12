@@ -151,6 +151,7 @@ class scene extends Phaser.Scene {
             })
         }
         if(this.life===0){
+            player.setVelocity(0, 0);
             player.x = this.currentSaveX
             player.y = this.currentSaveY;
             this.life=3;
