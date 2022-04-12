@@ -73,8 +73,9 @@ class scene extends Phaser.Scene {
         this.life=3;
         this.hand=this.physics.add.sprite(300,500,'spike').setOrigin(0,0);
         this.hand.body.setAllowGravity(false);
+        this.hand.body.setImmovable(true);
 
-        this.physics.add.overlap(this.player.player, this.hand, this.damage, null, this)
+        this.physics.add.collider(this.player.player, this.hand, this.damage, null, this)
 
         this.recov=false
 
@@ -141,8 +142,9 @@ class scene extends Phaser.Scene {
 
         if(this.recov===true){
             this.playerReset = this.time.addEvent({
-                delay: 2600,
+                delay: 1050,
                 callback: ()=>{
+                    console.log("kjgrd");
                     this.recov=false;
                 },
                 loop: false,
