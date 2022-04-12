@@ -25,8 +25,7 @@ class scene extends Phaser.Scene {
         this.chargeur = 5;
         this.Pballe = true ;
 
-
-        const backgroundImage = this.add.image(0, -800, 'background').setOrigin(0, 0);
+        const backgroundImage = this.add.image(0, -1000, 'background').setOrigin(0, 0);
         backgroundImage.setScale(2,2)
 
 
@@ -41,6 +40,7 @@ class scene extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
         backgroundImage.setPipeline('Light2D');
         this.platforms.setPipeline('Light2D');
+
 
 
         this.player = new Player(this)
@@ -68,15 +68,28 @@ class scene extends Phaser.Scene {
 
         this.cameras.main.startFollow(this.player.player,false);
 
+//Dégats
+
+        this.life=3;
+        this.hand=this.physics.add.sprite(300,500,'spike').setOrigin(0,0);
+        this.hand.body.setAllowGravity(false);
+
+        this.physics.add.overlap(this.player.player, this.hand, this.damage, null, this)
+
+        this.recov=false
+
+
+
+
 //Lumières
 
         this.lights.enable().setAmbientColor(0x555555);
 
         // var neuneu = this.lights.addLight(this.currentSaveX, this.currentSaveY, 230).setColor(0xF0AF2F).setIntensity(0.5);
 
-        this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 230).setColor(0xF0AF2F).setIntensity(5);
+        this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 100*this.life).setColor(0xF0AF2F).setIntensity(5);
 
-        this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(5);
+        this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(5).setVisible(false);
 
 
         // var spotlight = this.lights.addLight(this.balle.balle.x, this.balle.balle.y, 230).setIntensity(0.5);
@@ -107,7 +120,6 @@ class scene extends Phaser.Scene {
         this.balle = new Balle(this);
         //this.ballight = this.lights.addLight(this.balle.x, this.balle.y, 100).setColor(0xF0AF2F).setIntensity(3);
 
-
     }
 
     sauvegarde(player, saves) {
@@ -116,6 +128,33 @@ class scene extends Phaser.Scene {
         this.currentSaveY = saves.y
         saves.body.enable = false;
         this.sound.play('feu');
+        this.life=3;
+        this.sl.setVisible(true);
+    }
+
+    damage(player, hand){
+        if(this.recov===false)
+        {this.life-=1;
+            this.recov=true;
+            //this.spotlight.radius-=30;
+        }
+
+        if(this.recov===true){
+            this.playerReset = this.time.addEvent({
+                delay: 2600,
+                callback: ()=>{
+                    this.recov=false;
+                },
+                loop: false,
+            })
+        }
+        if(this.life===0){
+            player.x = this.currentSaveX
+            player.y = this.currentSaveY;
+            this.life=3;
+        }
+
+        console.log(this.life)
     }
 
 
@@ -154,6 +193,9 @@ class scene extends Phaser.Scene {
         this.target.x = this.player.player.x + game.input.mousePointer.x - (1920/2)
         this.target.y = this.player.player.y + game.input.mousePointer.y - (1080/2)
 
+        //this.target.x =  game.input.mousePointer.worldX
+        //this.target.y =  game.input.mousePointer.worldY
+
         /*console.log("souri")
         console.log(game.input.mousePointer.y)
         console.log(game.input.mousePointer.x)
@@ -164,6 +206,7 @@ class scene extends Phaser.Scene {
 
         this.spotlight.x = this.player.player.x;
         this.spotlight.y = this.player.player.y;
+        this.spotlight.radius = 100*this.life;
 
 
 
