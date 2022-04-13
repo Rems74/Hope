@@ -22,11 +22,7 @@ class scene extends Phaser.Scene {
         this.currentSaveX = 0;
         this.currentSaveY = 0;
 
-        this.chargeur = 5;
-        this.Pballe = true ;
-
-
-        const backgroundImage = this.add.image(0, -800, 'background').setOrigin(0, 0);
+        const backgroundImage = this.add.image(0, -1000, 'background').setOrigin(0, 0);
         backgroundImage.setScale(2,2)
 
 
@@ -43,30 +39,49 @@ class scene extends Phaser.Scene {
         this.platforms.setPipeline('Light2D');
 
 
+
         this.player = new Player(this)
+
+//Shooter
+
+        this.shooter = this.physics.add.sprite(1000, 150, 'circleB').setOrigin(0, 0);
+        this.shooter.setDisplaySize(50,50);
+        this.shooter.body.setAllowGravity(false);
+        this.shooter.setVisible(true);
+
+        const tx = this.player.player.x
+        const ty = this.player.player.y
+
+        const iax = this.shooter.x;
+        const iay = this.shooter.y;
+
+        this.time.addEvent({ delay: 2000, callback: this.tir, callbackScope: this,loop : true });
+
+
 
 //Balles
 
-        if(this.Pballe===true){
-            this.input.on('pointerdown', function (pointer) {
-                this.tir();
-                console.log(this.chargeur);
-            }, this);
-        }else {
-            console.log("Plus de balle")
-
-        }
-
         this.projectiles = this.add.group();
 
-        this.target = this.physics.add.sprite(game.input.mousePointer.x, game.input.mousePointer.y,'circleB').setOrigin(0, 0);
+        this.target = this.physics.add.sprite(this.player.player.x, this.player.player.y,'circleB').setOrigin(0, 0);
         this.target.setDisplaySize(10,10);
+        this.target.setVisible(false);
         this.target.body.setAllowGravity(false);
         this.target.setImmovable(false);
-        this.target.setVisible(true);
 
 
         this.cameras.main.startFollow(this.player.player,false);
+
+//Dégats
+
+        this.life=3;
+        this.hand=this.physics.add.sprite(300,500,'spike').setOrigin(0,0);
+        this.hand.body.setAllowGravity(false);
+        this.hand.body.setImmovable(true);
+
+        this.physics.add.collider(this.player.player, this.hand, this.damage, null, this)
+        this.recov=false
+
 
 //Lumières
 
@@ -74,12 +89,10 @@ class scene extends Phaser.Scene {
 
         // var neuneu = this.lights.addLight(this.currentSaveX, this.currentSaveY, 230).setColor(0xF0AF2F).setIntensity(0.5);
 
-        this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 230).setColor(0xF0AF2F).setIntensity(5);
+        this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 100*this.life).setColor(0xF0AF2F).setIntensity(5);
 
-        this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(5);
+        this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(5).setVisible(false);
 
-
-        // var spotlight = this.lights.addLight(this.balle.balle.x, this.balle.balle.y, 230).setIntensity(0.5);
 
 
 //Sauvegardes
@@ -103,10 +116,9 @@ class scene extends Phaser.Scene {
 
 
     tir() {let me = this;
-        this.chargeur -= 1;
         this.balle = new Balle(this);
         //this.ballight = this.lights.addLight(this.balle.x, this.balle.y, 100).setColor(0xF0AF2F).setIntensity(3);
-
+        this.physics.add.overlap(this.player.player, this.balle, this.damage2, null, this)
 
     }
 
@@ -116,10 +128,72 @@ class scene extends Phaser.Scene {
         this.currentSaveY = saves.y
         saves.body.enable = false;
         this.sound.play('feu');
+        this.life=3;
+        this.sl.setVisible(true);
+    }
+
+    damage(player){
+        console.log("pute")
+        if(this.recov===false)
+        {this.life-=1;
+            this.recov=true;
+            //this.spotlight.radius-=30;
+        }
+
+        if(this.recov===true){
+            this.playerReset = this.time.addEvent({
+                delay: 1050,
+                callback: ()=>{
+                    console.log("kjgrd");
+                    this.recov=false;
+                },
+                loop: false,
+            })
+        }
+        if(this.life===0){
+            player.setVelocity(0, 0);
+            player.x = this.currentSaveX
+            player.y = this.currentSaveY;
+            this.life=3;
+        }
+
+        console.log(this.life)
+    }
+
+    damage2(player, balle){
+        balle.destroy(true);
+        if(this.recov===false)
+        {this.life-=1;
+            this.recov=true;
+            //this.spotlight.radius-=30;
+        }
+
+        if(this.recov===true){
+            this.playerReset = this.time.addEvent({
+                delay: 1050,
+                callback: ()=>{
+                    console.log("kjgrd");
+                    this.recov=false;
+                },
+                loop: false,
+            })
+        }
+        if(this.life===0){
+            player.setVelocity(0, 0);
+            player.x = this.currentSaveX
+            player.y = this.currentSaveY;
+            this.life=3;
+        }
+
+        console.log(this.life)
     }
 
 
+
+
     update() {
+
+
 
         this.sl.x = this.currentSaveX+20;
         this.sl.y = this.currentSaveY;
@@ -145,26 +219,15 @@ class scene extends Phaser.Scene {
             tir.update();
         }
 
-        this.Pballe = this.chargeur > 0;
-
         this.target.x = this.cameras.main.x
-
         this.target.y = this.cameras.main.y /*+ game.input.mousePointer.y */;
-
-        this.target.x = this.player.player.x + game.input.mousePointer.x - (1920/2)
-        this.target.y = this.player.player.y + game.input.mousePointer.y - (1080/2)
-
-        /*console.log("souri")
-        console.log(game.input.mousePointer.y)
-        console.log(game.input.mousePointer.x)
-        console.log("target")
-        console.log(this.target.y)
-        console.log(this.target.x)*/
+        this.target.x = this.player.player.x
+        this.target.y = this.player.player.y
 
 
         this.spotlight.x = this.player.player.x;
         this.spotlight.y = this.player.player.y;
-
+        this.spotlight.radius = 100*this.life;
 
 
     }
