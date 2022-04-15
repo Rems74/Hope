@@ -137,14 +137,12 @@ class scene extends Phaser.Scene {
         if(this.recov===false)
         {this.life-=1;
             this.recov=true;
-            //this.spotlight.radius-=30;
         }
 
         if(this.recov===true){
             this.playerReset = this.time.addEvent({
                 delay: 1050,
                 callback: ()=>{
-                    console.log("kjgrd");
                     this.recov=false;
                 },
                 loop: false,
@@ -172,7 +170,6 @@ class scene extends Phaser.Scene {
             this.playerReset = this.time.addEvent({
                 delay: 1050,
                 callback: ()=>{
-                    console.log("kjgrd");
                     this.recov=false;
                 },
                 loop: false,

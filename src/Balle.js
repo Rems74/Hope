@@ -16,7 +16,6 @@ class Balle extends Phaser.GameObjects.Sprite{
         scene.projectiles.add(this);
 
         let me = this;
-console.log(this.scene.target)
         this.scene.physics.moveToObject(this, this.scene.target, 400);
 
 
