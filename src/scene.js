@@ -14,6 +14,7 @@ class scene extends Phaser.Scene {
         this.load.image('circleB','assets/circleB.png');
         this.load.image('save', 'assets/images/Save.png');
         this.load.audio('feu','assets/sons/feu.mp3');
+        this.load.audio('cri','assets/sons/cri.mp3');
 
     }
 
@@ -87,8 +88,6 @@ class scene extends Phaser.Scene {
 
         this.lights.enable().setAmbientColor(0x555555);
 
-        // var neuneu = this.lights.addLight(this.currentSaveX, this.currentSaveY, 230).setColor(0xF0AF2F).setIntensity(0.5);
-
         this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 100*this.life).setColor(0xF0AF2F).setIntensity(5);
 
         this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(5).setVisible(false);
@@ -105,8 +104,6 @@ class scene extends Phaser.Scene {
        map.getObjectLayer('Save').objects.forEach((save) => {
             const saveSprite = this.saves.create(save.x, save.y- save.height, 'save').setOrigin(0);
        });
-
-        // this.ui = this.lights.addLight(this.currentSaveX, this.currentSaveY, 230).setColor(0xF0AF2F).setIntensity(0.5).setVisible(true);
 
         this.physics.add.overlap(this.player.player, this.saves, this.sauvegarde, null, this)
 
@@ -138,6 +135,7 @@ class scene extends Phaser.Scene {
         {this.life-=1;
             this.recov=true;
         }
+        this.sound.play('cri');
 
         if(this.recov===true){
             this.playerReset = this.time.addEvent({
@@ -165,6 +163,7 @@ class scene extends Phaser.Scene {
             this.recov=true;
             //this.spotlight.radius-=30;
         }
+        this.sound.play('cri');
 
         if(this.recov===true){
             this.playerReset = this.time.addEvent({
@@ -189,8 +188,6 @@ class scene extends Phaser.Scene {
 
 
     update() {
-
-
 
         this.sl.x = this.currentSaveX+20;
         this.sl.y = this.currentSaveY;
