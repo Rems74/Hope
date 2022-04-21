@@ -2,19 +2,45 @@ class scene extends Phaser.Scene {
 
 
     preload() {
+
         this.load.image('background', 'assets/images/tentative.jpg');
         this.load.image('spike', 'assets/images/spike.png');
         // At last image must be loaded with its JSON
         this.load.atlas('player', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
 
+        //load anims
+
+        for (let m=1;m<=8;m++){
+            this.load.image('marche-'+m,'assets/anim/marche/marche-'+m+'.png')
+        }
+
+        for (let s=1;s<=14;s++){
+            this.load.image('saut-'+s,'assets/anim/saut/saut-'+s+'.png')
+        }
+
+        for (let i=1;i<=6;i++){
+            this.load.image('idle-1-'+i,'assets/anim/idle/idle-1-'+i+'.png')
+        }
+
+        for (let i=1;i<=6;i++){
+            this.load.image('idle-2-'+i,'assets/anim/idle/idle-2-'+i+'.png')
+        }
+
+        for (let n=1;n<=6;n++){
+            this.load.image('mort-'+n,'assets/anim/mort/mort-'+n+'.png')
+        }
+
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
         this.load.image('balle','assets/square.png');
         this.load.image('circleB','assets/circleB.png');
         this.load.image('save', 'assets/images/Save.png');
+
+        //load audio
         this.load.audio('feu','assets/sons/feu.mp3');
         this.load.audio('cri','assets/sons/cri.mp3');
+
 
     }
 
@@ -22,11 +48,10 @@ class scene extends Phaser.Scene {
     create() {
         this.currentSaveX = 0;
         this.currentSaveY = 0;
+        this.recove = false;
 
         const backgroundImage = this.add.image(0, -1000, 'background').setOrigin(0, 0);
         backgroundImage.setScale(2,2)
-
-
 
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
@@ -88,7 +113,7 @@ class scene extends Phaser.Scene {
 
         this.lights.enable().setAmbientColor(0x555555);
 
-        this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 100*this.life).setColor(0xF0AF2F).setIntensity(5);
+        this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 150*this.life).setColor(0xF0AF2F).setIntensity(7);
 
         this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(5).setVisible(false);
 
@@ -122,7 +147,7 @@ class scene extends Phaser.Scene {
     sauvegarde(player, saves) {
         console.log("current", this.currentSaveX, this.currentSaveY)
         this.currentSaveX = saves.x
-        this.currentSaveY = saves.y
+        this.currentSaveY = saves.y-50
         saves.body.enable = false;
         this.sound.play('feu');
         this.life=3;
@@ -130,7 +155,6 @@ class scene extends Phaser.Scene {
     }
 
     damage(player){
-        console.log("pute")
         if(this.recov===false)
         {this.life-=1;
             this.recov=true;
@@ -145,12 +169,6 @@ class scene extends Phaser.Scene {
                 },
                 loop: false,
             })
-        }
-        if(this.life===0){
-            player.setVelocity(0, 0);
-            player.x = this.currentSaveX
-            player.y = this.currentSaveY;
-            this.life=3;
         }
 
         console.log(this.life)
@@ -174,12 +192,7 @@ class scene extends Phaser.Scene {
                 loop: false,
             })
         }
-        if(this.life===0){
-            player.setVelocity(0, 0);
-            player.x = this.currentSaveX
-            player.y = this.currentSaveY;
-            this.life=3;
-        }
+
 
         console.log(this.life)
     }
@@ -193,20 +206,7 @@ class scene extends Phaser.Scene {
         this.sl.y = this.currentSaveY;
 
 
-        switch (true) {
-            case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
-                this.player.jump()
-                break;
-            case this.cursors.left.isDown:
-                this.player.moveLeft()
-                break;
-            case this.cursors.right.isDown:
-                this.player.moveRight();
-                break;
-            default:
-                this.player.stop();
 
-        }
 
         for(var i = 0; i < this.projectiles.getChildren().length; i++){
             var tir = this.projectiles.getChildren()[i];
@@ -221,8 +221,40 @@ class scene extends Phaser.Scene {
 
         this.spotlight.x = this.player.player.x;
         this.spotlight.y = this.player.player.y;
-        this.spotlight.radius = 100*this.life;
+        this.spotlight.radius = 150*this.life;
 
+        if(this.life===0){
+            if(this.recove===false)
+            {this.player.death();
+                this.recove=true;
+                //this.spotlight.radius-=30;
+            }
+            this.sound.play('cri');
+
+            if(this.recove===true){
+                this.playerReset = this.time.addEvent({
+                    delay: 1050,
+                    callback: ()=>{
+                        this.recove=false;
+                    },
+                    loop: false,
+                })
+            }
+
+        }else{switch (true) {
+            case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
+                this.player.jump()
+                break;
+            case this.cursors.left.isDown:
+                this.player.moveLeft()
+                break;
+            case this.cursors.right.isDown:
+                this.player.moveRight();
+                break;
+            default:
+                this.player.stop();
+
+        }}
 
     }
 }
