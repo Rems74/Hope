@@ -8,6 +8,7 @@ class scene extends Phaser.Scene {
         // At last image must be loaded with its JSON
         this.load.atlas('player', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
+        this.load.image('eye', 'assets/images/oeil.png');
 
         //load anims
 
@@ -70,8 +71,7 @@ class scene extends Phaser.Scene {
 
 //Shooter
 
-        this.shooter = this.physics.add.sprite(1000, 150, 'circleB').setOrigin(0, 0);
-        this.shooter.setDisplaySize(50,50);
+        this.shooter = this.physics.add.sprite(1000, 150, 'eye').setOrigin(0, 0);
         this.shooter.body.setAllowGravity(false);
         this.shooter.setVisible(true);
 
@@ -157,9 +157,10 @@ class scene extends Phaser.Scene {
     damage(player){
         if(this.recov===false)
         {this.life-=1;
+            this.sound.play('cri');
             this.recov=true;
         }
-        this.sound.play('cri');
+
 
         if(this.recov===true){
             this.playerReset = this.time.addEvent({
@@ -178,10 +179,11 @@ class scene extends Phaser.Scene {
         balle.destroy(true);
         if(this.recov===false)
         {this.life-=1;
+            this.sound.play('cri');
             this.recov=true;
             //this.spotlight.radius-=30;
         }
-        this.sound.play('cri');
+
 
         if(this.recov===true){
             this.playerReset = this.time.addEvent({
@@ -229,7 +231,7 @@ class scene extends Phaser.Scene {
                 this.recove=true;
                 //this.spotlight.radius-=30;
             }
-            this.sound.play('cri');
+
 
             if(this.recove===true){
                 this.playerReset = this.time.addEvent({
