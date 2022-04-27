@@ -9,6 +9,7 @@ class scene extends Phaser.Scene {
         this.load.atlas('player', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
         this.load.image('eye', 'assets/images/oeil.png');
+        this.load.image('balle','assets/images/green.png');
 
         //load anims
 
@@ -34,7 +35,7 @@ class scene extends Phaser.Scene {
 
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
-        this.load.image('balle','assets/square.png');
+
         this.load.image('circleB','assets/circleB.png');
         this.load.image('save', 'assets/images/Save.png');
 

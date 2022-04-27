@@ -10,7 +10,7 @@ class Balle extends Phaser.GameObjects.Sprite{
         scene.add.existing(this);
 
         scene.physics.world.enableBody(this)
-        this.setDisplaySize(10,10);
+        this.setDisplaySize(15,15);
         this.body.setAllowGravity(false);
 
         scene.projectiles.add(this);
