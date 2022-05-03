@@ -152,6 +152,8 @@ class scene extends Phaser.Scene {
             frameRate: 6,
             repeat: 0});
 
+        this.flameA = this.add.sprite(100, 0, 'fire1').setOrigin(0,0).setVisible(false);
+        this.flameA.play('fire1');
 
         this.anims.create({
             key: 'fire2',
@@ -166,8 +168,11 @@ class scene extends Phaser.Scene {
                 {key:'danse-8'},
                 {key:'danse-9'},
             ],
-            frameRate: 6,
+            frameRate: 9,
             repeat: -1});
+
+        this.flameB = this.add.sprite(100, 0, 'fire2').setOrigin(0,0).setVisible(false);
+        this.flameB.play('fire2');
     }
 
 
@@ -183,12 +188,24 @@ class scene extends Phaser.Scene {
 
     sauvegarde(player, saves) {
         console.log("current", this.currentSaveX, this.currentSaveY)
+        this.flameB.setVisible(false);
         this.currentSaveX = saves.x
         this.currentSaveY = saves.y-50
         saves.body.enable = false;
         this.sound.play('feu');
         this.life=3;
         this.sl.setVisible(true);
+        this.flameA = this.add.sprite(this.currentSaveX, this.currentSaveY-20, 'fire1').setOrigin(0,0).setVisible(true);
+        this.flameA.play('fire1');
+        this.switch=this.time.addEvent({
+            delay: 700,
+            callback: ()=>{
+                this.flameB.setVisible(true);
+                this.flameA.setVisible(false);
+            },
+            loop: false,
+        })
+
     }
 
 
@@ -243,8 +260,11 @@ class scene extends Phaser.Scene {
 
     update() {
 
-        this.sl.x = this.currentSaveX+20;
-        this.sl.y = this.currentSaveY;
+        this.sl.x = this.currentSaveX;
+        this.sl.y = this.currentSaveY-20;
+
+        this.flameB.x = this.currentSaveX;
+        this.flameB.y = this.currentSaveY-20;
 
 
 

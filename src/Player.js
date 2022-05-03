@@ -86,8 +86,6 @@ class Player {
             repeat: 0});
 
 
-
-
     }
 
     jump(){
