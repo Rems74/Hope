@@ -1,4 +1,4 @@
-const config = {
+var config = {
     type: Phaser.AUTO,
     parent: 'game',
     width: 1920,
@@ -17,4 +17,4 @@ const config = {
     scene: new scene(),
 };
 
-const game = new Phaser.Game(config);
+var game = new Phaser.Game(config);

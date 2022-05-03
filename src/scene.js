@@ -6,7 +6,6 @@ class scene extends Phaser.Scene {
         this.load.image('background', 'assets/images/tentative.jpg');
         this.load.image('spike', 'assets/images/spike.png');
         // At last image must be loaded with its JSON
-        this.load.atlas('player', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
         this.load.image('eye', 'assets/images/oeil.png');
         this.load.image('balle','assets/images/green.png');
@@ -33,10 +32,17 @@ class scene extends Phaser.Scene {
             this.load.image('mort-'+n,'assets/anim/mort/mort-'+n+'.png')
         }
 
+        for (let a=1;a<=5;a++){
+            this.load.image('allumage-'+a,'assets/anim/allumage/allumage-'+a+'.png')
+        }
+
+        for (let b=1;b<=9;b++){
+            this.load.image('danse-'+b,'assets/anim/danse/danse-'+b+'.png')
+        }
+
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
 
-        this.load.image('circleB','assets/circleB.png');
         this.load.image('save', 'assets/images/Save.png');
 
         //load audio
@@ -45,7 +51,6 @@ class scene extends Phaser.Scene {
 
 
     }
-
 
     create() {
         this.currentSaveX = 0;
@@ -133,9 +138,39 @@ class scene extends Phaser.Scene {
 
         this.physics.add.overlap(this.player.player, this.saves, this.sauvegarde, null, this)
 
+//Animations
+
+        this.anims.create({
+            key: 'fire1',
+            frames: [
+                {key:'allumage-1'},
+                {key:'allumage-2'},
+                {key:'allumage-3'},
+                {key:'allumage-4'},
+                {key:'allumage-5'},
+            ],
+            frameRate: 6,
+            repeat: 0});
 
 
+        this.anims.create({
+            key: 'fire2',
+            frames: [
+                {key:'danse-1'},
+                {key:'danse-2'},
+                {key:'danse-3'},
+                {key:'danse-4'},
+                {key:'danse-5'},
+                {key:'danse-6'},
+                {key:'danse-7'},
+                {key:'danse-8'},
+                {key:'danse-9'},
+            ],
+            frameRate: 6,
+            repeat: -1});
     }
+
+
 
 
     tir() {let me = this;
@@ -144,6 +179,7 @@ class scene extends Phaser.Scene {
         this.physics.add.overlap(this.player.player, this.balle, this.damage2, null, this)
 
     }
+
 
     sauvegarde(player, saves) {
         console.log("current", this.currentSaveX, this.currentSaveY)
@@ -154,6 +190,8 @@ class scene extends Phaser.Scene {
         this.life=3;
         this.sl.setVisible(true);
     }
+
+
 
     damage(player){
         if(this.recov===false)
