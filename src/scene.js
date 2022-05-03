@@ -149,7 +149,7 @@ class scene extends Phaser.Scene {
                 {key:'allumage-4'},
                 {key:'allumage-5'},
             ],
-            frameRate: 6,
+            frameRate: 9,
             repeat: 0});
 
         this.flameA = this.add.sprite(100, 0, 'fire1').setOrigin(0,0).setVisible(false);
