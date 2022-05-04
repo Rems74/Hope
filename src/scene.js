@@ -10,6 +10,7 @@ class scene extends Phaser.Scene {
         this.load.image('eye', 'assets/images/oeil.png');
         this.load.image('balle','assets/images/green.png');
 
+
         //load anims
 
         for (let m=1;m<=8;m++){
@@ -40,10 +41,20 @@ class scene extends Phaser.Scene {
             this.load.image('danse-'+b,'assets/anim/danse/danse-'+b+'.png')
         }
 
+        for (let c=1;c<=14;c++){
+            this.load.image('hand-1-'+c,'assets/anim/main-1/main-1-'+c+'.png')
+        }
+
+        for (let c=1;c<=14;c++){
+            this.load.image('hand-2-'+c,'assets/anim/main-2/main-2-'+c+'.png')
+        }
+
+
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
 
         this.load.image('save', 'assets/images/Save.png');
+
 
         //load audio
         this.load.audio('feu','assets/sons/feu.mp3');
@@ -104,16 +115,6 @@ class scene extends Phaser.Scene {
 
         this.cameras.main.startFollow(this.player.player,false);
 
-//Dégats
-
-        this.life=3;
-        this.hand=this.physics.add.sprite(300,500,'spike').setOrigin(0,0);
-        this.hand.body.setAllowGravity(false);
-        this.hand.body.setImmovable(true);
-
-        this.physics.add.collider(this.player.player, this.hand, this.damage, null, this)
-        this.recov=false
-
 
 //Lumières
 
@@ -173,6 +174,67 @@ class scene extends Phaser.Scene {
 
         this.flameB = this.add.sprite(100, 0, 'fire2').setOrigin(0,0).setVisible(false);
         this.flameB.play('fire2');
+
+
+        this.anims.create({
+            key: 'hand1',
+            frames: [
+                {key:'hand-1-1'},
+                {key:'hand-1-2'},
+                {key:'hand-1-3'},
+                {key:'hand-1-4'},
+                {key:'hand-1-5'},
+                {key:'hand-1-6'},
+                {key:'hand-1-7'},
+                {key:'hand-1-8'},
+                {key:'hand-1-9'},
+                {key:'hand-1-10'},
+                {key:'hand-1-11'},
+                {key:'hand-1-12'},
+                {key:'hand-1-13'},
+                {key:'hand-1-14'},
+            ],
+            frameRate: 9,
+            repeat: -1});
+
+        this.hand = this.physics.add.sprite(500, 400, 'hand-1-1').setOrigin(0,0);
+        this.hand.play('hand1');
+        this.hand.body.setAllowGravity(false);
+        this.hand.body.setImmovable(true);
+
+
+
+        this.anims.create({
+            key: 'hand2',
+            frames: [
+                {key:'hand-2-1'},
+                {key:'hand-2-2'},
+                {key:'hand-2-3'},
+                {key:'hand-2-4'},
+                {key:'hand-2-5'},
+                {key:'hand-2-6'},
+                {key:'hand-2-7'},
+                {key:'hand-2-8'},
+                {key:'hand-2-9'},
+                {key:'hand-2-10'},
+                {key:'hand-2-11'},
+                {key:'hand-2-12'},
+                {key:'hand-2-13'},
+                {key:'hand-2-14'},
+            ],
+            frameRate: 9,
+            repeat: -1});
+
+
+//Dégats
+
+        this.life=3;
+        //this.hand=this.physics.add.sprite(300,500,'spike').setOrigin(0,0);
+        //this.hand.body.setAllowGravity(false);
+        //this.hand.body.setImmovable(true);
+
+        this.physics.add.collider(this.player.player, this.hand, this.damage, null, this)
+        this.recov=false
     }
 
 
