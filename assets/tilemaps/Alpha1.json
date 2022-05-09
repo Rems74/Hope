@@ -4,6 +4,17 @@
  "layers":[
         {
          "draworder":"topdown",
+         "id":9,
+         "name":"hand",
+         "objects":[],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":6,
          "name":"Save",
          "objects":[
@@ -70,12 +81,24 @@
                  "gid":38,
                  "height":64,
                  "id":69,
-                 "name":"",
+                 "name":"shooter1",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":64,
                  "x":2240,
+                 "y":512
+                }, 
+                {
+                 "gid":38,
+                 "height":64,
+                 "id":72,
+                 "name":"shooter2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":2624,
                  "y":512
                 }],
          "opacity":1,
@@ -112,8 +135,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":9,
- "nextobjectid":72,
+ "nextlayerid":10,
+ "nextobjectid":74,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.1",

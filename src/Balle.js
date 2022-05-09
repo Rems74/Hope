@@ -1,8 +1,8 @@
 class Balle extends Phaser.GameObjects.Sprite{
     constructor(scene) {
 
-        let x = scene.shooter.x;
-        let y = scene.shooter.y;
+        let x = scene.shooter1.x;
+        let y = scene.shooter1.y;
 
 
         super(scene,x,y,"balle");

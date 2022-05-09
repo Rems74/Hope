@@ -7,7 +7,7 @@ class scene extends Phaser.Scene {
         this.load.image('spike', 'assets/images/spike.png');
         // At last image must be loaded with its JSON
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
-        this.load.image('eye', 'assets/images/oeil.png');
+        this.load.image('shooter', 'assets/images/Shooter.png');
         this.load.image('balle','assets/images/green.png');
 
 
@@ -88,18 +88,42 @@ class scene extends Phaser.Scene {
 
 //Shooter
 
-        this.shooter = this.physics.add.sprite(1000, 150, 'eye').setOrigin(0, 0);
-        this.shooter.body.setAllowGravity(false);
-        this.shooter.setVisible(true);
+        //this.shooter = this.physics.add.sprite(1000, 150, 'eye').setOrigin(0, 0);
+        //this.shooter.body.setAllowGravity(false);
+        //this.shooter.setVisible(true);
 
-        const tx = this.player.player.x
-        const ty = this.player.player.y
 
-        const iax = this.shooter.x;
-        const iay = this.shooter.y;
+        //this.time.addEvent({ delay: 2000, callback: this.tir, callbackScope: this,loop : true });
+        const objectsLayer = map.getObjectLayer('Shooter')
+        objectsLayer.objects.forEach(objData=> {
+            const {x = 0, y = 0, name} = objData
+
+            switch (name) {
+                case 'shooter1': {
+                    this.shooter1 = this.physics.add.sprite(x, y, 'shooter').setOrigin(0, 0);
+                    this.shooter1.body.setAllowGravity(false);
+                    this.shooter1.setVisible(true);
+                    break;
+                }
+                case 'shooter2': {
+                    this.shooter2 = this.physics.add.sprite(x, y, 'shooter').setOrigin(0, 0);
+                    this.shooter2.body.setAllowGravity(false);
+                    this.shooter2.setVisible(true);
+                    break;
+                }
+            }
+        })
+
+        // this.shooter = this.physics.add.group({
+        //     allowGravity: false,
+        //     immovable: true
+        // });
+        //
+        // map.getObjectLayer('Shooter').objects.forEach((Shooter) => {
+        //     const shooterSprite = this.shooter.create(Shooter.x, Shooter.y- Shooter.height, 'shooter').setOrigin(0);
+        // });
 
         this.time.addEvent({ delay: 2000, callback: this.tir, callbackScope: this,loop : true });
-
 
 
 //Balles
@@ -176,68 +200,17 @@ class scene extends Phaser.Scene {
         this.flameB.play('fire2');
 
 
-        this.anims.create({
-            key: 'hand1',
-            frames: [
-                {key:'hand-1-1'},
-                {key:'hand-1-2'},
-                {key:'hand-1-3'},
-                {key:'hand-1-4'},
-                {key:'hand-1-5'},
-                {key:'hand-1-6'},
-                {key:'hand-1-7'},
-                {key:'hand-1-8'},
-                {key:'hand-1-9'},
-                {key:'hand-1-10'},
-                {key:'hand-1-11'},
-                {key:'hand-1-12'},
-                {key:'hand-1-13'},
-                {key:'hand-1-14'},
-            ],
-            frameRate: 9,
-            repeat: -1});
+//mains
 
-        this.hand = this.physics.add.sprite(500, 570, 'hand-1-1').setOrigin(0,0);
-        this.hand.play('hand1');
-        this.hand.body.setAllowGravity(false);
-        this.hand.body.setImmovable(true);
-        this.hand.body.setSize(50,50).setOffset(75,150)
-
-
-
-        this.anims.create({
-            key: 'hand2',
-            frames: [
-                {key:'hand-2-1'},
-                {key:'hand-2-2'},
-                {key:'hand-2-3'},
-                {key:'hand-2-4'},
-                {key:'hand-2-5'},
-                {key:'hand-2-6'},
-                {key:'hand-2-7'},
-                {key:'hand-2-8'},
-                {key:'hand-2-9'},
-                {key:'hand-2-10'},
-                {key:'hand-2-11'},
-                {key:'hand-2-12'},
-                {key:'hand-2-13'},
-                {key:'hand-2-14'},
-            ],
-            frameRate: 9,
-            repeat: -1});
-
-        this.hand2 = this.physics.add.sprite(1000, 570, 'hand-2-1').setOrigin(0,0);
-        this.hand2.play('hand2');
-        this.hand2.body.setAllowGravity(false);
-        this.hand2.body.setImmovable(true);
+        this.hand = new hand(this)
 
 
 //Dégats
 
         this.life=3;
 
-        this.physics.add.collider(this.player.player, this.hand, this.damage, null, this)
-        this.physics.add.collider(this.player.player, this.hand2, this.damage, null, this)
+        this.physics.add.collider(this.player.player, this.hand.hand, this.damage, null, this)
+        this.physics.add.collider(this.player.player, this.hand.hand2, this.damage, null, this)
         this.recov=false
     }
 
