@@ -123,7 +123,7 @@ class scene extends Phaser.Scene {
         //     const shooterSprite = this.shooter.create(Shooter.x, Shooter.y- Shooter.height, 'shooter').setOrigin(0);
         // });
 
-        this.time.addEvent({ delay: 2000, callback: this.tir, callbackScope: this,loop : true });
+        this.time.addEvent({ delay: 3000, callback: this.tir, callbackScope: this,loop : true });
 
 
 //Balles

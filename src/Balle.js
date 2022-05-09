@@ -4,7 +4,6 @@ class Balle extends Phaser.GameObjects.Sprite{
         let x = scene.shooter1.x;
         let y = scene.shooter1.y;
 
-
         super(scene,x,y,"balle");
 
         scene.add.existing(this);
@@ -17,11 +16,6 @@ class Balle extends Phaser.GameObjects.Sprite{
 
         let me = this;
         this.scene.physics.moveToObject(this, this.scene.target, 400);
-
-
-
-
-
 
     }
 
