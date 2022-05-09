@@ -197,10 +197,11 @@ class scene extends Phaser.Scene {
             frameRate: 9,
             repeat: -1});
 
-        this.hand = this.physics.add.sprite(500, 400, 'hand-1-1').setOrigin(0,0);
+        this.hand = this.physics.add.sprite(500, 570, 'hand-1-1').setOrigin(0,0);
         this.hand.play('hand1');
         this.hand.body.setAllowGravity(false);
         this.hand.body.setImmovable(true);
+        this.hand.body.setSize(50,50).setOffset(75,150)
 
 
 
@@ -225,15 +226,18 @@ class scene extends Phaser.Scene {
             frameRate: 9,
             repeat: -1});
 
+        this.hand2 = this.physics.add.sprite(1000, 570, 'hand-2-1').setOrigin(0,0);
+        this.hand2.play('hand2');
+        this.hand2.body.setAllowGravity(false);
+        this.hand2.body.setImmovable(true);
+
 
 //Dégats
 
         this.life=3;
-        //this.hand=this.physics.add.sprite(300,500,'spike').setOrigin(0,0);
-        //this.hand.body.setAllowGravity(false);
-        //this.hand.body.setImmovable(true);
 
         this.physics.add.collider(this.player.player, this.hand, this.damage, null, this)
+        this.physics.add.collider(this.player.player, this.hand2, this.damage, null, this)
         this.recov=false
     }
 
@@ -260,7 +264,7 @@ class scene extends Phaser.Scene {
         this.flameA = this.add.sprite(this.currentSaveX, this.currentSaveY-20, 'fire1').setOrigin(0,0).setVisible(true);
         this.flameA.play('fire1');
         this.switch=this.time.addEvent({
-            delay: 700,
+            delay: 600,
             callback: ()=>{
                 this.flameB.setVisible(true);
                 this.flameA.setVisible(false);

@@ -4,10 +4,12 @@ class Player {
     constructor(scene) {
         this.scene=scene
         this.cameras=scene
-        this.player = this.scene.physics.add.sprite(50, 100, 'idle-1-1');
+        this.player = this.scene.physics.add.sprite(50, 650, 'idle-1-1');
+        this.player.body.setSize(100,190).setOffset(40,5)
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(false);
         this.scene.physics.add.collider(this.player, this.scene.platforms);
+
 
         this.scene.anims.create({
             key: 'marche',
