@@ -221,13 +221,26 @@ class scene extends Phaser.Scene {
             this.Hands1.add(hand);
         });
 
+        this.hand = new hand(this)
+
+        this.Hands2 = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
+
+        map.getObjectLayer('Hand2').objects.forEach((Hand2) => {
+            const hand2 = this.Hands2.create(Hand2.x- 135, Hand2.y- 192, 'hand-2-1').setOrigin(0).setPipeline('Light2D');
+            hand2.play('hand2')
+            this.Hands2.add(hand2);
+        });
+
 
 //Dégats
 
         this.life=3;
 
         this.physics.add.collider(this.player.player, this.Hands1, this.damage, null, this)
-        this.physics.add.collider(this.player.player, this.hand.hand2, this.damage, null, this)
+        this.physics.add.collider(this.player.player, this.Hands2, this.damage, null, this)
         this.recov=false
     }
 
