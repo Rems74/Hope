@@ -215,7 +215,9 @@ class scene extends Phaser.Scene {
         });
 
         map.getObjectLayer('Hand1').objects.forEach((Hand1) => {
-            const hand = this.Hands1.create(Hand1.x, Hand1.y- Hand1.height, 'hand-1-1').setOrigin(0).setPipeline('Light2D');
+            const hand = this.Hands1.create(Hand1.x- Hand1.height, Hand1.y- 200, 'hand-1-1').setOrigin(0).setPipeline('Light2D');
+            hand.play('hand1')
+            hand.body.setSize(50,50).setOffset(75,150)
             this.Hands1.add(hand);
         });
 
