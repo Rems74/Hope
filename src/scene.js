@@ -84,6 +84,7 @@ class scene extends Phaser.Scene {
 
 
 
+
         this.player = new Player(this)
 
 //Shooter
@@ -146,7 +147,7 @@ class scene extends Phaser.Scene {
 
         this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 150*this.life).setColor(0xF0AF2F).setIntensity(7);
 
-        this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(5).setVisible(false);
+        this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(3).setVisible(false);
 
 
 
@@ -158,10 +159,14 @@ class scene extends Phaser.Scene {
         });
 
        map.getObjectLayer('Save').objects.forEach((save) => {
-            const saveSprite = this.saves.create(save.x, save.y- save.height, 'save').setOrigin(0);
+            const saveSprite = this.saves.create(save.x, save.y- save.height, 'save').setOrigin(0).setPipeline('Light2D');
        });
 
         this.physics.add.overlap(this.player.player, this.saves, this.sauvegarde, null, this)
+
+
+
+
 
 //Animations
 
@@ -234,7 +239,7 @@ class scene extends Phaser.Scene {
         this.sound.play('feu');
         this.life=3;
         this.sl.setVisible(true);
-        this.flameA = this.add.sprite(this.currentSaveX, this.currentSaveY-20, 'fire1').setOrigin(0,0).setVisible(true);
+        this.flameA = this.add.sprite(this.currentSaveX, this.currentSaveY-5, 'fire1').setOrigin(0,0).setVisible(true);
         this.flameA.play('fire1');
         this.switch=this.time.addEvent({
             delay: 600,
@@ -303,7 +308,7 @@ class scene extends Phaser.Scene {
         this.sl.y = this.currentSaveY-20;
 
         this.flameB.x = this.currentSaveX;
-        this.flameB.y = this.currentSaveY-20;
+        this.flameB.y = this.currentSaveY-5;
 
 
 
