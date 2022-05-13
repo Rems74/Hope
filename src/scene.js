@@ -215,8 +215,23 @@ class scene extends Phaser.Scene {
         });
 
         map.getObjectLayer('Hand1').objects.forEach((Hand1) => {
-            const hand = this.Hands1.create(Hand1.x, Hand1.y- Hand1.height, 'hand-1-1').setOrigin(0).setPipeline('Light2D');
+            const hand = this.Hands1.create(Hand1.x- Hand1.height, Hand1.y-200, 'hand-1-1').setOrigin(0).setPipeline('Light2D');
+            hand.play('hand1')
+            hand.body.setSize(50,50).setOffset(75,150)
             this.Hands1.add(hand);
+        });
+
+        this.hand = new hand(this)
+
+        this.Hands2 = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
+
+        map.getObjectLayer('Hand2').objects.forEach((Hand2) => {
+            const hand2 = this.Hands2.create(Hand2.x- 135, Hand2.y- 192, 'hand-2-1').setOrigin(0).setPipeline('Light2D');
+            hand2.play('hand2')
+            this.Hands2.add(hand2);
         });
 
 
@@ -225,7 +240,7 @@ class scene extends Phaser.Scene {
         this.life=3;
 
         this.physics.add.collider(this.player.player, this.Hands1, this.damage, null, this)
-        this.physics.add.collider(this.player.player, this.hand.hand2, this.damage, null, this)
+        this.physics.add.collider(this.player.player, this.Hands2, this.damage, null, this)
         this.recov=false
     }
 
