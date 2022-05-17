@@ -60,6 +60,8 @@ class scene extends Phaser.Scene {
         //load audio
         this.load.audio('feu','assets/sons/feu.mp3');
         this.load.audio('cri','assets/sons/cri.mp3');
+        this.load.audio('mood',['assets/sons/forest2.wav']);
+
 
 
     }
@@ -71,7 +73,7 @@ class scene extends Phaser.Scene {
 
         const backgroundImage = this.add.image(0, -1000, 'background').setOrigin(0, 0);
         backgroundImage.setScale(2,2)
-
+        this.player = new Player(this)
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
         const tileset2 = map.addTilesetImage('branches', 'tiles2');
@@ -85,9 +87,19 @@ class scene extends Phaser.Scene {
         this.platforms.setPipeline('Light2D');
 
 
+        this.collide = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
+        map.getObjectLayer('Collider').objects.forEach((collide) => {
+            this.collideSprite = this.physics.add.sprite(collide.x + (collide.width * 0.5), collide.y + (collide.height * 0.5)).setSize(collide.width, collide.height).setDepth(1);
+            this.collide.add(this.collideSprite)
+        });
+        //
 
 
-        this.player = new Player(this)
+
+
 
 //Shooter
 
@@ -217,7 +229,7 @@ class scene extends Phaser.Scene {
         });
 
         map.getObjectLayer('Hand1').objects.forEach((Hand1) => {
-            const hand = this.Hands1.create(Hand1.x- Hand1.height, Hand1.y-200, 'hand-1-1').setOrigin(0).setPipeline('Light2D');
+            const hand = this.Hands1.create(Hand1.x- Hand1.height, Hand1.y-160, 'hand-1-1').setOrigin(0).setPipeline('Light2D');
             hand.play('hand1')
             hand.body.setSize(50,50).setOffset(75,150)
             this.Hands1.add(hand);
@@ -250,6 +262,13 @@ class scene extends Phaser.Scene {
         this.physics.add.collider(this.player.player, this.Hands1, this.damage, null, this)
         this.physics.add.collider(this.player.player, this.Hands2, this.damage, null, this)
         this.recov=false
+        this.physics.add.collider(this.player.player, this.collide);
+
+//Musique
+        this.ambiance = this.sound.add('mood',{ loop: true, volume:1});
+        if(this.temp === this.temp){
+            this.ambiance.play()
+        }
     }
 
 

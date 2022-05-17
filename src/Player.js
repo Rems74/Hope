@@ -4,11 +4,10 @@ class Player {
     constructor(scene) {
         this.scene=scene
         this.cameras=scene
-        this.player = this.scene.physics.add.sprite(50, 650, 'idle-1-1');
+        this.player = this.scene.physics.add.sprite(400, 600, 'idle-1-1');
         this.player.body.setSize(100,190).setOffset(40,5)
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(false);
-        this.scene.physics.add.collider(this.player, this.scene.platforms);
 
 
         this.scene.anims.create({
@@ -91,7 +90,7 @@ class Player {
     }
 
     jump(){
-        this.player.setVelocityY(-420);
+        this.player.setVelocityY(-490);
         this.player.play('saut', true);
     }
 
