@@ -7,6 +7,7 @@ class scene extends Phaser.Scene {
         this.load.image('spike', 'assets/images/spike.png');
         // At last image must be loaded with its JSON
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
+        this.load.image('tiles2', 'assets/tilesets/les-branches-la.png');
         this.load.image('shooter', 'assets/images/Shooter.png');
         this.load.image('balle','assets/images/green.png');
 
@@ -73,8 +74,9 @@ class scene extends Phaser.Scene {
 
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
+        const tileset2 = map.addTilesetImage('branches', 'tiles2');
         const platforms0 = map.createLayer('Devant', tileset, 0, 200);
-        this.platforms = map.createStaticLayer('Sol', tileset);
+        this.platforms = map.createStaticLayer('Sol', tileset2);
         platforms0.setCollisionByExclusion(-1, false);
         platforms0.scrollFactorX=1.03;//Bushes
         this.platforms.setCollisionByExclusion(-1, true);
