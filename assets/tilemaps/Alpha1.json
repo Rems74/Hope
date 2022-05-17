@@ -107,6 +107,18 @@
                  "width":64,
                  "x":4544,
                  "y":640
+                }, 
+                {
+                 "gid":39,
+                 "height":64,
+                 "id":128,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":1344,
+                 "y":640
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -239,18 +251,6 @@
                  "y":598
                 }, 
                 {
-                 "gid":514,
-                 "height":64,
-                 "id":83,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":64,
-                 "x":1470,
-                 "y":716
-                }, 
-                {
                  "gid":37,
                  "height":64,
                  "id":112,
@@ -307,15 +307,15 @@
          "chunks":[],
          "compression":"",
          "encoding":"base64",
-         "height":48,
+         "height":0,
          "id":7,
          "name":"Devant",
          "opacity":1,
-         "startx":-16,
-         "starty":-16,
+         "startx":0,
+         "starty":0,
          "type":"tilelayer",
          "visible":true,
-         "width":64,
+         "width":0,
          "x":0,
          "y":0
         }, 
@@ -399,7 +399,7 @@
          "y":0
         }],
  "nextlayerid":12,
- "nextobjectid":128,
+ "nextobjectid":130,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.1",

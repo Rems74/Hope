@@ -46,9 +46,12 @@ class scene extends Phaser.Scene {
             this.load.image('hand-1-'+c,'assets/anim/main-1/main-1-'+c+'.png')
         }
 
-        for (let c=1;c<=14;c++){
-            this.load.image('hand-2-'+c,'assets/anim/main-2/main-2-'+c+'.png')
-        }
+        // for (let c=1;c<=14;c++){
+        //     this.load.image('hand-2-'+c,'assets/anim/main-2/main-2-'+c+'.png')
+        // }
+
+        this.load.spritesheet('hand-2','assets/anim/main-2/atlas-main-3.png',{frameWidth: 200, frameHeight: 200});
+
 
 
         // Load the export Tiled JSON
@@ -243,12 +246,12 @@ class scene extends Phaser.Scene {
         });
 
         map.getObjectLayer('Hand2').objects.forEach((Hand2) => {
-            const hand2 = this.Hands2.create(Hand2.x- 135, Hand2.y- 192, 'hand-2-1').setOrigin(0).setPipeline('Light2D');
+            const hand2 = this.Hands2.create(Hand2.x- 100, Hand2.y- 192, 'hand-2-1').setOrigin(0).setPipeline('Light2D');
             hand2.play('hand2')
+            hand2.body.setSize(50,50).setOffset(50,30)
             this.tweens.add({targets: hand2.body,
-                    duration:2000,repeat:-1,
-                    height: 100,
-                    width: 50,
+                    duration:775,repeat:-1,
+                    height: 150,
                     yoyo:true,
             })
             this.Hands2.add(hand2);
