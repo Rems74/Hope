@@ -165,6 +165,13 @@ class scene extends Phaser.Scene {
         this.target.body.setAllowGravity(false);
         this.target.setImmovable(false);
 
+        this.eyesT = this.physics.add.sprite(this.shooter1.x+10, this.shooter1.y+10,'circleB').setOrigin(0, 0);
+        this.eyesT.setDisplaySize(10,10);
+        this.eyesT.setVisible(false);
+        this.eyesT.body.setAllowGravity(false);
+        this.eyesT.setImmovable(false);
+
+
 
         this.cameras.main.startFollow(this.player.player,false);
 
@@ -292,6 +299,14 @@ class scene extends Phaser.Scene {
 
 
     tir() {let me = this;
+        this.test = this.test !== true;
+        if(this.test === true){
+            this.eyesT.x = this.shooter1.x
+            this.eyesT.y = this.shooter1.y
+        }else{
+            this.eyesT.x = this.shooter2.x
+            this.eyesT.y = this.shooter2.y
+        }
         this.balle = new Balle(this);
         //this.ballight = this.lights.addLight(this.balle.x, this.balle.y, 100).setColor(0xF0AF2F).setIntensity(3);
         this.physics.add.overlap(this.player.player, this.balle, this.damage2, null, this)

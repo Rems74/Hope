@@ -1,8 +1,8 @@
 class Balle extends Phaser.GameObjects.Sprite{
     constructor(scene) {
 
-        let x = scene.shooter1.x;
-        let y = scene.shooter1.y;
+        let x = scene.eyesT.x;
+        let y = scene.eyesT.y;
 
         super(scene,x,y,"balle");
 
@@ -21,16 +21,16 @@ class Balle extends Phaser.GameObjects.Sprite{
 
     update(){
 
-        if(this.y < 0 ){
+        if(this.y < -9999 ){
             this.destroy();
         }
-        if(this.y > 3000 ){
+        if(this.y > 9999 ){
             this.destroy();
         }
-        if(this.x < 0 ){
+        if(this.x < -9999 ){
             this.destroy();
         }
-        if(this.x > 3000 ){
+        if(this.x > 9999 ){
             this.destroy();
         }
 
