@@ -76,18 +76,29 @@ class scene extends Phaser.Scene {
 
         const backgroundImage = this.add.image(0, -1000, 'background').setOrigin(0, 0);
         backgroundImage.setScale(2,2)
-        this.player = new Player(this)
+
         const map = this.make.tilemap({key: 'map'});
-        const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
+
         const tileset2 = map.addTilesetImage('branches', 'tiles2');
-        const platforms0 = map.createLayer('Devant', tileset, 0, 200);
+
         this.platforms = map.createStaticLayer('Sol', tileset2);
-        platforms0.setCollisionByExclusion(-1, false);
-        platforms0.scrollFactorX=1.03;//Bushes
+
+        this.boss = map.createLayer(
+            "Boss",
+            tileset2
+        );
+
+        this.player = new Player(this)
+
+        const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
+
+
         this.platforms.setCollisionByExclusion(-1, true);
         this.cursors = this.input.keyboard.createCursorKeys();
+
         backgroundImage.setPipeline('Light2D');
         this.platforms.setPipeline('Light2D');
+        this.boss.setPipeline('Light2D');
 
 
         this.collide = this.physics.add.group({
@@ -118,13 +129,13 @@ class scene extends Phaser.Scene {
 
             switch (name) {
                 case 'shooter1': {
-                    this.shooter1 = this.physics.add.sprite(x, y, 'shooter').setOrigin(0, 0);
+                    this.shooter1 = this.physics.add.sprite(x, y-50, 'shooter').setOrigin(0, 0);
                     this.shooter1.body.setAllowGravity(false);
                     this.shooter1.setVisible(true);
                     break;
                 }
                 case 'shooter2': {
-                    this.shooter2 = this.physics.add.sprite(x, y, 'shooter').setOrigin(0, 0);
+                    this.shooter2 = this.physics.add.sprite(x, y-50, 'shooter').setOrigin(0, 0);
                     this.shooter2.body.setAllowGravity(false);
                     this.shooter2.setVisible(true);
                     break;
@@ -165,6 +176,9 @@ class scene extends Phaser.Scene {
         this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 150*this.life).setColor(0xF0AF2F).setIntensity(7);
 
         this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(3).setVisible(false);
+
+        this.shootl1 = this.lights.addLight(this.shooter1.x, this.shooter1.y, 150).setColor(0x3BFF9A).setIntensity(2)
+        this.shootl2 = this.lights.addLight(this.shooter2.x, this.shooter2.y, 150).setColor(0x3BFF9A).setIntensity(2)
 
 
 
@@ -364,6 +378,12 @@ class scene extends Phaser.Scene {
 
         this.flameB.x = this.currentSaveX;
         this.flameB.y = this.currentSaveY-5;
+
+        this.shootl1.x = this.shooter1.x+20
+        this.shootl1.y =this.shooter1.y+30
+
+        this.shootl2.x = this.shooter2.x+20
+        this.shootl2.y =this.shooter2.y+30
 
 
 
