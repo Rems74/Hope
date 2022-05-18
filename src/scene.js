@@ -58,6 +58,7 @@ class scene extends Phaser.Scene {
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
 
         this.load.image('save', 'assets/images/Save.png');
+        this.load.image('holly', 'assets/images/Save2.png');
 
 
         //load audio
@@ -110,6 +111,7 @@ class scene extends Phaser.Scene {
             this.collide.add(this.collideSprite)
         });
         //
+        this.bosslife=4
 
 
 
@@ -152,7 +154,7 @@ class scene extends Phaser.Scene {
         //     const shooterSprite = this.shooter.create(Shooter.x, Shooter.y- Shooter.height, 'shooter').setOrigin(0);
         // });
 
-        this.time.addEvent({ delay: 3000, callback: this.tir, callbackScope: this,loop : true });
+        this.time.addEvent({ delay: 1000*this.bosslife, callback: this.tir, callbackScope: this,loop : true });
 
 
 //Balles
@@ -183,6 +185,11 @@ class scene extends Phaser.Scene {
         this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 150*this.life).setColor(0xF0AF2F).setIntensity(7);
 
         this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(3).setVisible(false);
+
+        // this.bl1 = this.lights.addLight(this.Holly1.x, this.Holly1.y, 500).setColor(0xF0AF2F).setIntensity(3).setVisible(true);
+        // this.bl2 = this.lights.addLight(this.Holly2.x, this.Holly2.y, 500).setColor(0xF0AF2F).setIntensity(3).setVisible(true);
+        // this.bl3 = this.lights.addLight(this.Holly3.x, this.Holly3.y, 500).setColor(0xF0AF2F).setIntensity(3).setVisible(true);
+        // this.bl4 = this.lights.addLight(this.Holly4.x, this.Holly4.y, 500).setColor(0xF0AF2F).setIntensity(3).setVisible(true);
 
         this.shootl1 = this.lights.addLight(this.shooter1.x, this.shooter1.y, 150).setColor(0x3BFF9A).setIntensity(2)
         this.shootl2 = this.lights.addLight(this.shooter2.x, this.shooter2.y, 150).setColor(0x3BFF9A).setIntensity(2)
@@ -277,6 +284,56 @@ class scene extends Phaser.Scene {
             })
             this.Hands2.add(hand2);
         });
+
+//Braséros boss
+
+
+
+        // this.Holly = this.physics.add.group({
+        //     allowGravity: false,
+        //     immovable: true
+        // });
+        //
+        // map.getObjectLayer('Holly').objects.forEach((b) => {
+        //     const brasero = this.Holly.create(b.x, b.y-90, 'holly').setOrigin(0).setPipeline('Light2D');
+        //
+        //     this.Holly.add(brasero);
+        // });
+
+        const hollyLayer = map.getObjectLayer('Holly')
+        hollyLayer.objects.forEach(objData=> {
+            const {x = 0, y = 0, name} = objData
+
+            switch (name) {
+                case 'Holly1': {
+                    this.Holly1 = this.physics.add.sprite(x, y-50, 'holly').setOrigin(0, 0).setPipeline('Light2D');;
+                    this.Holly1.body.setAllowGravity(false);
+                    this.Holly1.setVisible(true);
+                    break;
+                }
+                case 'Holly2': {
+                    this.Holly2 = this.physics.add.sprite(x, y-50, 'holly').setOrigin(0, 0).setPipeline('Light2D');;
+                    this.Holly2.body.setAllowGravity(false);
+                    this.Holly2.setVisible(true);
+                    break;
+                }
+                case 'Holly3': {
+                    this.Holly3 = this.physics.add.sprite(x, y-50, 'holly').setOrigin(0, 0).setPipeline('Light2D');;
+                    this.Holly3.body.setAllowGravity(false);
+                    this.Holly3.setVisible(true);
+                    break;
+                }
+                case 'Holly4': {
+                    this.Holly4 = this.physics.add.sprite(x, y-50, 'holly').setOrigin(0, 0).setPipeline('Light2D');;
+                    this.Holly4.body.setAllowGravity(false);
+                    this.Holly4.setVisible(true);
+                    break;
+                }
+            }
+
+        })
+
+        this.physics.add.overlap(this.player.player, this.Holly, this.killboss, null, this)
 
 
 //Dégats
@@ -384,7 +441,13 @@ class scene extends Phaser.Scene {
     }
 
 
-
+    killboss(a,b){
+        if(b.visible === true){
+            this.bosslife-=1
+            this.bl.setVisible(true);
+            console.log(this.bosslife)
+        }
+    }
 
     update() {
 
