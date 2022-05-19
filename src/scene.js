@@ -65,6 +65,7 @@ class scene extends Phaser.Scene {
         this.load.audio('feu','assets/sons/feu.mp3');
         this.load.audio('cri','assets/sons/cri.mp3');
         this.load.audio('mood',['assets/sons/forest2.wav']);
+        this.load.audio('cry','assets/sons/lamentation.wav');
 
 
 
@@ -154,7 +155,7 @@ class scene extends Phaser.Scene {
         //     const shooterSprite = this.shooter.create(Shooter.x, Shooter.y- Shooter.height, 'shooter').setOrigin(0);
         // });
 
-        this.time.addEvent({ delay: 1000*this.bosslife, callback: this.tir, callbackScope: this,loop : true });
+
 
 
 //Balles
@@ -174,6 +175,7 @@ class scene extends Phaser.Scene {
         this.eyesT.setImmovable(false);
 
 
+        this.tir()
 
         this.cameras.main.startFollow(this.player.player,false);
 
@@ -185,11 +187,6 @@ class scene extends Phaser.Scene {
         this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 150*this.life).setColor(0xF0AF2F).setIntensity(7);
 
         this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(3).setVisible(false);
-
-        // this.bl1 = this.lights.addLight(this.Holly1.x, this.Holly1.y, 500).setColor(0xF0AF2F).setIntensity(3).setVisible(true);
-        // this.bl2 = this.lights.addLight(this.Holly2.x, this.Holly2.y, 500).setColor(0xF0AF2F).setIntensity(3).setVisible(true);
-        // this.bl3 = this.lights.addLight(this.Holly3.x, this.Holly3.y, 500).setColor(0xF0AF2F).setIntensity(3).setVisible(true);
-        // this.bl4 = this.lights.addLight(this.Holly4.x, this.Holly4.y, 500).setColor(0xF0AF2F).setIntensity(3).setVisible(true);
 
         this.shootl1 = this.lights.addLight(this.shooter1.x, this.shooter1.y, 150).setColor(0x3BFF9A).setIntensity(2)
         this.shootl2 = this.lights.addLight(this.shooter2.x, this.shooter2.y, 150).setColor(0x3BFF9A).setIntensity(2)
@@ -249,6 +246,9 @@ class scene extends Phaser.Scene {
         this.flameB = this.add.sprite(100, 0, 'fire2').setOrigin(0,0).setVisible(false);
         this.flameB.play('fire2');
 
+        this.flameC = this.add.sprite(100, 0, 'fire2').setOrigin(0,0).setVisible(false);
+        this.flameC.play('fire2');
+
 
 //mains
 
@@ -289,49 +289,17 @@ class scene extends Phaser.Scene {
 
 
 
-        // this.Holly = this.physics.add.group({
-        //     allowGravity: false,
-        //     immovable: true
-        // });
-        //
-        // map.getObjectLayer('Holly').objects.forEach((b) => {
-        //     const brasero = this.Holly.create(b.x, b.y-90, 'holly').setOrigin(0).setPipeline('Light2D');
-        //
-        //     this.Holly.add(brasero);
-        // });
+        this.Holly = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
 
-        const hollyLayer = map.getObjectLayer('Holly')
-        hollyLayer.objects.forEach(objData=> {
-            const {x = 0, y = 0, name} = objData
+        map.getObjectLayer('Holly').objects.forEach((b) => {
+            const c = this.Holly.create(b.x, b.y-70, 'holly').setOrigin(0).setPipeline('Light2D');
+            this.Holly.add(c);
+        });
 
-            switch (name) {
-                case 'Holly1': {
-                    this.Holly1 = this.physics.add.sprite(x, y-50, 'holly').setOrigin(0, 0).setPipeline('Light2D');;
-                    this.Holly1.body.setAllowGravity(false);
-                    this.Holly1.setVisible(true);
-                    break;
-                }
-                case 'Holly2': {
-                    this.Holly2 = this.physics.add.sprite(x, y-50, 'holly').setOrigin(0, 0).setPipeline('Light2D');;
-                    this.Holly2.body.setAllowGravity(false);
-                    this.Holly2.setVisible(true);
-                    break;
-                }
-                case 'Holly3': {
-                    this.Holly3 = this.physics.add.sprite(x, y-50, 'holly').setOrigin(0, 0).setPipeline('Light2D');;
-                    this.Holly3.body.setAllowGravity(false);
-                    this.Holly3.setVisible(true);
-                    break;
-                }
-                case 'Holly4': {
-                    this.Holly4 = this.physics.add.sprite(x, y-50, 'holly').setOrigin(0, 0).setPipeline('Light2D');;
-                    this.Holly4.body.setAllowGravity(false);
-                    this.Holly4.setVisible(true);
-                    break;
-                }
-            }
 
-        })
 
         this.physics.add.overlap(this.player.player, this.Holly, this.killboss, null, this)
 
@@ -349,13 +317,15 @@ class scene extends Phaser.Scene {
         this.ambiance = this.sound.add('mood',{ loop: true, volume:1});
         if(this.temp === this.temp){
             this.ambiance.play()
+
+
         }
     }
 
 
 
 
-    tir() {let me = this;
+    tir() {
         this.test = this.test !== true;
         if(this.test === true){
             this.eyesT.x = this.shooter1.x
@@ -364,13 +334,18 @@ class scene extends Phaser.Scene {
             this.eyesT.x = this.shooter2.x
             this.eyesT.y = this.shooter2.y
         }
-        this.balle = new Balle(this);
+        if(this.bosslife === 0){
+
+        }else{
+            this.balle = new Balle(this);
+            this.time.addEvent({ delay: 1500*this.bosslife, callback: this.tir, callbackScope: this,loop : true });
+        }
+
         //this.ballight = this.lights.addLight(this.balle.x, this.balle.y, 100).setColor(0xF0AF2F).setIntensity(3);
         this.physics.add.overlap(this.player.player, this.balle, this.damage2, null, this)
 
     }
-
-
+    
     sauvegarde(player, saves) {
         console.log("current", this.currentSaveX, this.currentSaveY)
         this.flameB.setVisible(false);
@@ -441,12 +416,28 @@ class scene extends Phaser.Scene {
     }
 
 
-    killboss(a,b){
-        if(b.visible === true){
-            this.bosslife-=1
-            this.bl.setVisible(true);
-            console.log(this.bosslife)
-        }
+    killboss(player,Holly){
+
+        this.bosslife-=1
+        Holly.body.enable = false;
+
+        this.sound.play('feu');
+        this.sound.play('cry');
+        this.lights.addLight(Holly.x, Holly.y-50, 500).setColor(0xF0AF2F).setIntensity(3);
+        this.flameA = this.add.sprite(Holly.x, Holly.y-50, 'fire1').setOrigin(0,0).setVisible(true);
+        this.flameC = this.add.sprite(Holly.x, Holly.y-50, 'fire2').setOrigin(0,0).setVisible(false);
+        this.flameA.play('fire1');
+        this.flameC.play('fire2');
+        this.switch=this.time.addEvent({
+            delay: 600,
+            callback: ()=>{
+
+                this.flameA.setVisible(false);
+                this.flameC.setVisible(true);
+            },
+            loop: false,
+        })
+        console.log(this.bosslife)
     }
 
     update() {
@@ -462,7 +453,6 @@ class scene extends Phaser.Scene {
 
         this.shootl2.x = this.shooter2.x+20
         this.shootl2.y =this.shooter2.y+30
-
 
 
 
