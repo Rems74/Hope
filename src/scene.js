@@ -75,6 +75,7 @@ class scene extends Phaser.Scene {
         this.currentSaveX = 0;
         this.currentSaveY = 0;
         this.recove = false;
+        this.test = true;
 
         const backgroundImage = this.add.image(0, -1000, 'background').setOrigin(0, 0);
         backgroundImage.setScale(2,2)
@@ -274,7 +275,7 @@ class scene extends Phaser.Scene {
         });
 
         map.getObjectLayer('Hand2').objects.forEach((Hand2) => {
-            const hand2 = this.Hands2.create(Hand2.x- 100, Hand2.y- 192, 'hand-2-1').setOrigin(0).setPipeline('Light2D');
+            const hand2 = this.Hands2.create(Hand2.x- 110, Hand2.y- 192, 'hand-2-1').setOrigin(0).setPipeline('Light2D');
             hand2.play('hand2')
             hand2.body.setSize(50,50).setOffset(50,30)
             this.tweens.add({targets: hand2.body,
@@ -326,7 +327,7 @@ class scene extends Phaser.Scene {
 
 
     tir() {
-        this.test = this.test !== true;
+
         if(this.test === true){
             this.eyesT.x = this.shooter1.x
             this.eyesT.y = this.shooter1.y
@@ -338,14 +339,25 @@ class scene extends Phaser.Scene {
 
         }else{
             this.balle = new Balle(this);
-            this.time.addEvent({ delay: 1500*this.bosslife, callback: this.tir, callbackScope: this,loop : true });
+
+            this.balle = new Balle(this);
+            this.Reset = this.time.addEvent({
+                delay: 1500*this.bosslife,
+                callback: ()=>{
+                    this.tir()
+                    console.log("la")
+                },
+                loop: false,
+            })
+            this.test = this.test !== true;
+            this.test = this.test !== true;
         }
 
         //this.ballight = this.lights.addLight(this.balle.x, this.balle.y, 100).setColor(0xF0AF2F).setIntensity(3);
         this.physics.add.overlap(this.player.player, this.balle, this.damage2, null, this)
 
     }
-    
+
     sauvegarde(player, saves) {
         console.log("current", this.currentSaveX, this.currentSaveY)
         this.flameB.setVisible(false);
@@ -426,6 +438,7 @@ class scene extends Phaser.Scene {
         this.lights.addLight(Holly.x, Holly.y-50, 500).setColor(0xF0AF2F).setIntensity(3);
         this.flameA = this.add.sprite(Holly.x, Holly.y-50, 'fire1').setOrigin(0,0).setVisible(true);
         this.flameC = this.add.sprite(Holly.x, Holly.y-50, 'fire2').setOrigin(0,0).setVisible(false);
+        this.cameras.main.shake(1000,0.004);
         this.flameA.play('fire1');
         this.flameC.play('fire2');
         this.switch=this.time.addEvent({

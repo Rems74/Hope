@@ -90,7 +90,7 @@ class Player {
     }
 
     jump(){
-        this.player.setVelocityY(-490);
+        this.player.setVelocityY(-500);
         this.player.play('saut', true);
     }
 
