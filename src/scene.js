@@ -9,7 +9,8 @@ class scene extends Phaser.Scene {
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
         this.load.image('tiles2', 'assets/tilesets/les-branches-la.png');
         this.load.image('shooter', 'assets/images/Shooter.png');
-        this.load.image('balle','assets/images/green.png');
+        this.load.image('blue','assets/images/blue.png');
+
 
 
         //load anims
@@ -66,8 +67,6 @@ class scene extends Phaser.Scene {
         this.load.audio('cri','assets/sons/cri.mp3');
         this.load.audio('mood',['assets/sons/forest2.wav']);
         this.load.audio('cry','assets/sons/lamentation.wav');
-
-
 
     }
 
@@ -206,9 +205,6 @@ class scene extends Phaser.Scene {
        });
 
         this.physics.add.overlap(this.player.player, this.saves, this.sauvegarde, null, this)
-
-
-
 
 
 //Animations
@@ -355,6 +351,7 @@ class scene extends Phaser.Scene {
 
         //this.ballight = this.lights.addLight(this.balle.x, this.balle.y, 100).setColor(0xF0AF2F).setIntensity(3);
         this.physics.add.overlap(this.player.player, this.balle, this.damage2, null, this)
+
 
     }
 

@@ -4,7 +4,8 @@ class Balle extends Phaser.GameObjects.Sprite{
         let x = scene.eyesT.x;
         let y = scene.eyesT.y;
 
-        super(scene,x,y,"balle");
+        super(scene,x,y,"blue");
+
 
         scene.add.existing(this);
 
@@ -16,7 +17,22 @@ class Balle extends Phaser.GameObjects.Sprite{
 
         let me = this;
         this.scene.physics.moveToObject(this, this.scene.target, 400);
+        this.particles();
 
+    }
+
+    particles(){
+        let particles = this.scene.add.particles('blue');
+
+        this.particlesEmit= particles.createEmitter({
+            speed: 50,
+            scale: { start: 0.3, end: 0 },
+            blendMode: 'ADD'
+
+        })
+
+        particles.setDepth(1);
+        this.particlesEmit.startFollow(this)
     }
 
     update(){
