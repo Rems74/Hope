@@ -321,8 +321,9 @@ class scene extends Phaser.Scene {
             this.eyesT.y = this.shooter2.y
         }
         if(this.bosslife === 0){
-
-        }else{
+            this.scene.start("victoire")
+        }
+        else{
             this.balle = new Balle(this);
 
             this.balle = new Balle(this);
@@ -498,8 +499,12 @@ class scene extends Phaser.Scene {
             case this.cursors.right.isDown:
                 this.player.moveRight();
                 break;
-            default:
-                this.player.stop();
+
+            //     case this.cursors.down.isDown:
+            //     this.bosslife=0;
+            //     break;
+            // default:
+            //     this.player.stop();
 
         }}
 
