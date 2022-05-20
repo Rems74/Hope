@@ -1,5 +1,9 @@
 class scene extends Phaser.Scene {
 
+    constructor (){
+        super("playGame")
+    }
+
 
     preload() {
 
@@ -120,12 +124,6 @@ class scene extends Phaser.Scene {
 
 //Shooter
 
-        //this.shooter = this.physics.add.sprite(1000, 150, 'eye').setOrigin(0, 0);
-        //this.shooter.body.setAllowGravity(false);
-        //this.shooter.setVisible(true);
-
-
-        //this.time.addEvent({ delay: 2000, callback: this.tir, callbackScope: this,loop : true });
         const objectsLayer = map.getObjectLayer('Shooter')
         objectsLayer.objects.forEach(objData=> {
             const {x = 0, y = 0, name} = objData
@@ -145,15 +143,6 @@ class scene extends Phaser.Scene {
                 }
             }
         })
-
-        // this.shooter = this.physics.add.group({
-        //     allowGravity: false,
-        //     immovable: true
-        // });
-        //
-        // map.getObjectLayer('Shooter').objects.forEach((Shooter) => {
-        //     const shooterSprite = this.shooter.create(Shooter.x, Shooter.y- Shooter.height, 'shooter').setOrigin(0);
-        // });
 
 
 
@@ -186,7 +175,7 @@ class scene extends Phaser.Scene {
 
         this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 150*this.life).setColor(0xF0AF2F).setIntensity(7);
 
-        this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(3).setVisible(false);
+        this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(7).setVisible(false);
 
         this.shootl1 = this.lights.addLight(this.shooter1.x, this.shooter1.y, 150).setColor(0x3BFF9A).setIntensity(2)
         this.shootl2 = this.lights.addLight(this.shooter2.x, this.shooter2.y, 150).setColor(0x3BFF9A).setIntensity(2)
@@ -346,7 +335,6 @@ class scene extends Phaser.Scene {
                 loop: false,
             })
             this.test = this.test !== true;
-            this.test = this.test !== true;
         }
 
         //this.ballight = this.lights.addLight(this.balle.x, this.balle.y, 100).setColor(0xF0AF2F).setIntensity(3);
@@ -402,6 +390,7 @@ class scene extends Phaser.Scene {
 
     damage2(player, balle){
         balle.destroy(true);
+        this.balle.parts.destroy();
         if(this.recov===false)
         {this.life-=1;
             this.sound.play('cri');
@@ -435,7 +424,7 @@ class scene extends Phaser.Scene {
         this.lights.addLight(Holly.x, Holly.y-50, 500).setColor(0xF0AF2F).setIntensity(3);
         this.flameA = this.add.sprite(Holly.x, Holly.y-50, 'fire1').setOrigin(0,0).setVisible(true);
         this.flameC = this.add.sprite(Holly.x, Holly.y-50, 'fire2').setOrigin(0,0).setVisible(false);
-        this.cameras.main.shake(1000,0.004);
+        this.cameras.main.shake(1500,0.004);
         this.flameA.play('fire1');
         this.flameC.play('fire2');
         this.switch=this.time.addEvent({

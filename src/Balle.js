@@ -22,32 +22,37 @@ class Balle extends Phaser.GameObjects.Sprite{
     }
 
     particles(){
-        let particles = this.scene.add.particles('blue');
+        this.parts = this.scene.add.particles('blue');
 
-        this.particlesEmit= particles.createEmitter({
+        this.particlesEmit= this.parts.createEmitter({
             speed: 50,
-            scale: { start: 0.3, end: 0 },
+            scale: { start: 0.2, end: 0 },
+            lifespan: { min: 300, max: 400 },
             blendMode: 'ADD'
 
         })
 
-        particles.setDepth(1);
+        this.parts.setDepth(1);
         this.particlesEmit.startFollow(this)
     }
 
     update(){
 
-        if(this.y < -9999 ){
+        if(this.y < -1798 ){
             this.destroy();
+            this.parts.destroy();
         }
-        if(this.y > 9999 ){
+        if(this.y > -104 ){
             this.destroy();
+            this.parts.destroy();
         }
-        if(this.x < -9999 ){
+        if(this.x < 760 ){
             this.destroy();
+            this.parts.destroy();
         }
-        if(this.x > 9999 ){
+        if(this.x > 3354 ){
             this.destroy();
+            this.parts.destroy();
         }
 
     }

@@ -28,27 +28,6 @@ class hand  {
 
 
 
-        // this.scene.anims.create({
-        //     key: 'hand2',
-        //     frames: [
-        //         {key:'hand-2-1'},
-        //         {key:'hand-2-2'},
-        //         {key:'hand-2-3'},
-        //         {key:'hand-2-4'},
-        //         {key:'hand-2-5'},
-        //         {key:'hand-2-6'},
-        //         {key:'hand-2-7'},
-        //         {key:'hand-2-8'},
-        //         {key:'hand-2-9'},
-        //         {key:'hand-2-10'},
-        //         {key:'hand-2-11'},
-        //         {key:'hand-2-12'},
-        //         {key:'hand-2-13'},
-        //         {key:'hand-2-14'},
-        //     ],
-        //     frameRate: 9,
-        //     repeat: -1});
-
         this.scene.anims.create({
             key: 'hand2',
             frames: this.scene.anims.generateFrameNames('hand-2', {
