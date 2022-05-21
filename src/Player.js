@@ -70,7 +70,7 @@ class Player {
                 {key:'saut-14'},
             ],
             frameRate: 7,
-            repeat: -1});
+            repeat: 0});
 
         this.scene.anims.create({
             key: 'mort',

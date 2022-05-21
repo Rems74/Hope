@@ -503,8 +503,8 @@ class scene extends Phaser.Scene {
             //     case this.cursors.down.isDown:
             //     this.bosslife=0;
             //     break;
-            // default:
-            //     this.player.stop();
+             default:
+                 this.player.stop();
 
         }}
 
