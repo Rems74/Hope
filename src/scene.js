@@ -321,7 +321,14 @@ class scene extends Phaser.Scene {
             this.eyesT.y = this.shooter2.y
         }
         if(this.bosslife === 0){
-            this.scene.start("victoire")
+            this.end = this.time.addEvent({
+                delay: 3000,
+                callback: ()=>{
+                    this.scene.start("victoire")
+                },
+                loop: false,
+            })
+
         }
         else{
             this.balle = new Balle(this);
@@ -475,7 +482,6 @@ class scene extends Phaser.Scene {
             if(this.recove===false)
             {this.player.death();
                 this.recove=true;
-                //this.spotlight.radius-=30;
             }
 
 
@@ -500,9 +506,9 @@ class scene extends Phaser.Scene {
                 this.player.moveRight();
                 break;
 
-            //     case this.cursors.down.isDown:
-            //     this.bosslife=0;
-            //     break;
+                 case this.cursors.down.isDown:
+                 this.bosslife=0;
+                 break;
              default:
                  this.player.stop();
 
