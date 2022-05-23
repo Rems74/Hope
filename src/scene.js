@@ -7,13 +7,14 @@ class scene extends Phaser.Scene {
 
     preload() {
 
-        this.load.image('background', 'assets/images/tentative.jpg');
+        this.load.image('background', 'assets/images/le-ciel-la.png');
         this.load.image('spike', 'assets/images/spike.png');
         // At last image must be loaded with its JSON
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
         this.load.image('tiles2', 'assets/tilesets/les-branches-la.png');
         this.load.image('shooter', 'assets/images/Shooter.png');
         this.load.image('blue','assets/images/blue.png');
+        this.load.image('stars','assets/images/etoiles.png');
 
 
 
@@ -80,14 +81,15 @@ class scene extends Phaser.Scene {
         this.recove = false;
         this.test = true;
 
-        const backgroundImage = this.add.image(0, -1000, 'background').setOrigin(0, 0);
-        backgroundImage.setScale(2,2)
+        const backgroundImage = this.add.image(-800, -3500, 'background').setOrigin(0, 0);
+        const stars =this.add.image(-800, -3500, 'stars').setOrigin(0, 0);
 
         const map = this.make.tilemap({key: 'map'});
 
         const tileset2 = map.addTilesetImage('branches', 'tiles2');
 
         this.platforms = map.createStaticLayer('Sol', tileset2);
+        this.moon = map.createLayer('moon', tileset2);
 
         this.boss = map.createLayer(
             "Boss",
@@ -306,6 +308,9 @@ class scene extends Phaser.Scene {
 
 
         }
+//paralax
+
+        this.moon.scrollFactorX=1.03;
     }
 
 
