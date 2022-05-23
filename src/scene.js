@@ -15,6 +15,7 @@ class scene extends Phaser.Scene {
         this.load.image('shooter', 'assets/images/Shooter.png');
         this.load.image('blue','assets/images/blue.png');
         this.load.image('stars','assets/images/etoiles.png');
+        this.load.image('mount','assets/images/montagne-la.png');
 
 
 
@@ -83,18 +84,31 @@ class scene extends Phaser.Scene {
 
         const backgroundImage = this.add.image(-800, -3500, 'background').setOrigin(0, 0);
         const stars =this.add.image(-800, -3500, 'stars').setOrigin(0, 0);
+        const mount= this.add.image(-800, -3500, 'mount').setOrigin(0, 0);
 
         const map = this.make.tilemap({key: 'map'});
 
         const tileset2 = map.addTilesetImage('branches', 'tiles2');
 
+        this.arbres2 = map.createLayer(
+            "arbres2",
+            tileset2
+        );
+        this.arbres1 = map.createLayer(
+            "arbres1",
+            tileset2
+        );
+
+
         this.platforms = map.createStaticLayer('Sol', tileset2);
         this.moon = map.createLayer('moon', tileset2);
-
         this.boss = map.createLayer(
             "Boss",
             tileset2
         );
+
+
+
 
         this.player = new Player(this)
 
@@ -107,6 +121,10 @@ class scene extends Phaser.Scene {
         backgroundImage.setPipeline('Light2D');
         this.platforms.setPipeline('Light2D');
         this.boss.setPipeline('Light2D');
+        this.arbres2.setPipeline('Light2D');
+        this.arbres1.setPipeline('Light2D');
+
+        mount.setPipeline('Light2D');
 
 
         this.collide = this.physics.add.group({
@@ -117,7 +135,7 @@ class scene extends Phaser.Scene {
             this.collideSprite = this.physics.add.sprite(collide.x + (collide.width * 0.5), collide.y + (collide.height * 0.5)).setSize(collide.width, collide.height).setDepth(1);
             this.collide.add(this.collideSprite)
         });
-        //
+
         this.bosslife=4
 
 
@@ -311,6 +329,8 @@ class scene extends Phaser.Scene {
 //paralax
 
         this.moon.scrollFactorX=1.03;
+        this.arbres1.scrollFactorX=1.04;
+        this.arbres2.scrollFactorX=1.06;
     }
 
 
@@ -511,9 +531,9 @@ class scene extends Phaser.Scene {
                 this.player.moveRight();
                 break;
 
-                 case this.cursors.down.isDown:
-                 this.bosslife=0;
-                 break;
+                 // case this.cursors.down.isDown:
+                 // this.bosslife=0;
+                 // break;
              default:
                  this.player.stop();
 
