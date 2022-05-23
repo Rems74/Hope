@@ -90,6 +90,18 @@ class scene extends Phaser.Scene {
 
         const tileset2 = map.addTilesetImage('branches', 'tiles2');
 
+        this.moon = map.createLayer('moon', tileset2);
+        
+        this.arbres5 = map.createLayer(
+            "arbres5",
+            tileset2
+        );
+
+        this.feuille2 = map.createLayer(
+            "feuillage2",
+            tileset2
+        );
+
         this.feuille = map.createLayer(
             "feuillage",
             tileset2
@@ -116,7 +128,7 @@ class scene extends Phaser.Scene {
 
 
         this.platforms = map.createStaticLayer('Sol', tileset2);
-        this.moon = map.createLayer('moon', tileset2);
+
         this.boss = map.createLayer(
             "Boss",
             tileset2
@@ -137,6 +149,8 @@ class scene extends Phaser.Scene {
         this.platforms.setPipeline('Light2D');
         this.boss.setPipeline('Light2D');
 
+        this.feuille2.setPipeline('Light2D');
+        this.arbres5.setPipeline('Light2D');
         this.feuille.setPipeline('Light2D');
         this.arbres4.setPipeline('Light2D');
         this.arbres3.setPipeline('Light2D');
@@ -353,6 +367,8 @@ class scene extends Phaser.Scene {
         this.arbres3.scrollFactorX=1.03;
         this.arbres4.scrollFactorX=1.06;
         this.feuille.scrollFactorX=1.08;
+        this.arbres5.scrollFactorX=1.06;
+        this.feuille2.scrollFactorX=1.08;
     }
 
 
