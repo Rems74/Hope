@@ -325,7 +325,31 @@ class scene extends Phaser.Scene {
                     yoyo:true,
             })
             this.Hands2.add(hand2);
+
         });
+
+        this.hand = new hand(this)
+
+        this.Hands3 = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
+
+        map.getObjectLayer('Hand3').objects.forEach((Hand3) => {
+            const hand3 = this.Hands3.create(Hand3.x-20, Hand3.y- 192, 'hand-2-1').setOrigin(0).setPipeline('Light2D').setFlipX(true);
+            hand3.play('hand2')
+            hand3.body.setSize(50,50).setOffset(100,30)
+            this.tweens.add({targets: hand3.body,
+                duration:775,repeat:-1,
+                height: 150,
+                yoyo:true,
+
+            })
+            this.Hands3.add(hand3);
+
+        });
+
+
 
 //Braséros boss
 
