@@ -130,28 +130,21 @@ class scene extends Phaser.Scene {
         );
 
 
-        this.platforms = map.createStaticLayer('Sol', tileset2);
+
 
         this.boss = map.createLayer(
             "Boss",
             tileset2
         );
-
-
-
-
         this.player = new Player(this)
-
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
 
 
-        this.platforms.setCollisionByExclusion(-1, true);
-        this.cursors = this.input.keyboard.createCursorKeys();
 
 //Lights
 
         backgroundImage.setPipeline('Light2D');
-        this.platforms.setPipeline('Light2D');
+
         this.boss.setPipeline('Light2D');
         this.feuille2.setPipeline('Light2D');
         this.arbres5.setPipeline('Light2D');
@@ -336,7 +329,7 @@ class scene extends Phaser.Scene {
         });
 
         map.getObjectLayer('Hand3').objects.forEach((Hand3) => {
-            const hand3 = this.Hands3.create(Hand3.x-20, Hand3.y- 192, 'hand-2-1').setOrigin(0).setPipeline('Light2D').setFlipX(true);
+            const hand3 = this.Hands3.create(Hand3.x-30, Hand3.y- 192, 'hand-2-1').setOrigin(0).setPipeline('Light2D').setFlipX(true);
             hand3.play('hand2')
             hand3.body.setSize(50,50).setOffset(100,30)
             this.tweens.add({targets: hand3.body,
@@ -376,6 +369,7 @@ class scene extends Phaser.Scene {
 
         this.physics.add.collider(this.player.player, this.Hands1, this.damage, null, this)
         this.physics.add.collider(this.player.player, this.Hands2, this.damage, null, this)
+        this.physics.add.collider(this.player.player, this.Hands3, this.damage, null, this)
         this.recov=false
         this.physics.add.collider(this.player.player, this.collide);
 
@@ -387,6 +381,11 @@ class scene extends Phaser.Scene {
 
         }
 //paralax
+
+        this.platforms = map.createStaticLayer('Sol', tileset2);
+        this.platforms.setCollisionByExclusion(-1, true);
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.platforms.setPipeline('Light2D');
 
         this.moon.scrollFactorX=1.02;
         this.arbres1.scrollFactorX=1.02;
