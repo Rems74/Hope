@@ -8,7 +8,7 @@ class Player {
         this.player.body.setSize(100,190).setOffset(40,5)
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(false);
-        this.player.setPipeline('Light2D')
+        this.player.setPipeline('Light2D');
 
 
         this.scene.anims.create({

@@ -53,10 +53,6 @@ class scene extends Phaser.Scene {
             this.load.image('hand-1-'+c,'assets/anim/main-1/main-1-'+c+'.png')
         }
 
-        // for (let c=1;c<=14;c++){
-        //     this.load.image('hand-2-'+c,'assets/anim/main-2/main-2-'+c+'.png')
-        // }
-
         this.load.spritesheet('hand-2','assets/anim/main-2/atlas-main-3.png',{frameWidth: 200, frameHeight: 200});
 
 
@@ -433,8 +429,6 @@ class scene extends Phaser.Scene {
             })
             this.test = this.test !== true;
         }
-
-        //this.ballight = this.lights.addLight(this.balle.x, this.balle.y, 100).setColor(0xF0AF2F).setIntensity(3);
         this.physics.add.overlap(this.player.player, this.balle, this.damage2, null, this)
 
 
@@ -487,12 +481,11 @@ class scene extends Phaser.Scene {
 
     damage2(player, balle){
         balle.destroy(true);
-        this.balle.parts.destroy();
+        this.balle.parts.setVisible(false);
         if(this.recov===false)
         {this.life-=1;
             this.sound.play('cri');
             this.recov=true;
-            //this.spotlight.radius-=30;
         }
 
 
@@ -505,8 +498,6 @@ class scene extends Phaser.Scene {
                 loop: false,
             })
         }
-
-
         console.log(this.life)
     }
 
@@ -590,6 +581,7 @@ class scene extends Phaser.Scene {
             }
 
         }else{switch (true) {
+
             case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
                 this.player.jump()
                 break;
