@@ -91,7 +91,7 @@ class scene extends Phaser.Scene {
         const tileset2 = map.addTilesetImage('branches', 'tiles2');
 
         this.moon = map.createLayer('moon', tileset2);
-        
+
         this.arbres5 = map.createLayer(
             "arbres5",
             tileset2
