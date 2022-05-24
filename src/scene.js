@@ -14,7 +14,7 @@ class scene extends Phaser.Scene {
         this.load.image('tiles2', 'assets/tilesets/les-branches-la.png');
         this.load.image('shooter', 'assets/images/Shooter.png');
         this.load.image('blue','assets/images/blue.png');
-        this.load.image('stars','assets/images/etoiles.png');
+        this.load.image('stars','assets/images/etoiles2.png');
         this.load.image('mount','assets/images/montagne-la.png');
 
 
@@ -82,9 +82,10 @@ class scene extends Phaser.Scene {
         this.recove = false;
         this.test = true;
 
+//Décor
+
         const backgroundImage = this.add.image(-800, -3500, 'background').setOrigin(0, 0);
         const stars =this.add.image(-800, -3500, 'stars').setOrigin(0, 0);
-        const mount= this.add.image(-800, -3500, 'mount').setOrigin(0, 0);
 
         const map = this.make.tilemap({key: 'map'});
 
@@ -92,8 +93,15 @@ class scene extends Phaser.Scene {
 
         this.moon = map.createLayer('moon', tileset2);
 
+        const mount= this.add.image(-800, -3500, 'mount').setOrigin(0, 0);
+
         this.arbres5 = map.createLayer(
             "arbres5",
+            tileset2
+        );
+
+        this.arbres4 = map.createLayer(
+            "arbres4",
             tileset2
         );
 
@@ -104,11 +112,6 @@ class scene extends Phaser.Scene {
 
         this.feuille = map.createLayer(
             "feuillage",
-            tileset2
-        );
-
-        this.arbres4 = map.createLayer(
-            "arbres4",
             tileset2
         );
 
@@ -145,10 +148,11 @@ class scene extends Phaser.Scene {
         this.platforms.setCollisionByExclusion(-1, true);
         this.cursors = this.input.keyboard.createCursorKeys();
 
+//Lights
+
         backgroundImage.setPipeline('Light2D');
         this.platforms.setPipeline('Light2D');
         this.boss.setPipeline('Light2D');
-
         this.feuille2.setPipeline('Light2D');
         this.arbres5.setPipeline('Light2D');
         this.feuille.setPipeline('Light2D');
@@ -156,7 +160,6 @@ class scene extends Phaser.Scene {
         this.arbres3.setPipeline('Light2D');
         this.arbres2.setPipeline('Light2D');
         this.arbres1.setPipeline('Light2D');
-
         mount.setPipeline('Light2D');
 
 
@@ -226,9 +229,9 @@ class scene extends Phaser.Scene {
 
         this.lights.enable().setAmbientColor(0x555555);
 
-        this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 150*this.life).setColor(0xF0AF2F).setIntensity(7);
+        this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y, 150*this.life).setColor(0xFBEE7E).setIntensity(2);
 
-        this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(7).setVisible(false);
+        this.sl = this.lights.addLight(0, 100, 500).setColor(0xF0AF2F).setIntensity(3).setVisible(false);
 
         this.shootl1 = this.lights.addLight(this.shooter1.x, this.shooter1.y, 150).setColor(0x3BFF9A).setIntensity(2)
         this.shootl2 = this.lights.addLight(this.shooter2.x, this.shooter2.y, 150).setColor(0x3BFF9A).setIntensity(2)
@@ -492,7 +495,7 @@ class scene extends Phaser.Scene {
 
         this.sound.play('feu');
         this.sound.play('cry');
-        this.lights.addLight(Holly.x, Holly.y-50, 500).setColor(0xF0AF2F).setIntensity(3);
+        this.lights.addLight(Holly.x, Holly.y-50, 500).setColor(0xF0AF2F).setIntensity(2);
         this.flameA = this.add.sprite(Holly.x, Holly.y-50, 'fire1').setOrigin(0,0).setVisible(true);
         this.flameC = this.add.sprite(Holly.x, Holly.y-50, 'fire2').setOrigin(0,0).setVisible(false);
         this.cameras.main.shake(1500,0.004);
@@ -537,7 +540,12 @@ class scene extends Phaser.Scene {
         this.target.y = this.player.player.y
 
 
-        this.spotlight.x = this.player.player.x;
+        if (this.player.player.flipX===false){
+            this.spotlight.x = this.player.player.x+70;
+        }
+        else{
+            this.spotlight.x = this.player.player.x-70
+        }
         this.spotlight.y = this.player.player.y;
         this.spotlight.radius = 150*this.life;
 

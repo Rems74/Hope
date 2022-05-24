@@ -8,6 +8,7 @@ class Player {
         this.player.body.setSize(100,190).setOffset(40,5)
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(false);
+        this.player.setPipeline('Light2D')
 
 
         this.scene.anims.create({
@@ -69,7 +70,7 @@ class Player {
                 {key:'saut-13'},
                 {key:'saut-14'},
             ],
-            frameRate: 7,
+            frameRate: 8,
             repeat: 0});
 
         this.scene.anims.create({
@@ -90,7 +91,7 @@ class Player {
     }
 
     jump(){
-        this.player.setVelocityY(-500);
+        this.player.setVelocityY(-520);
         this.player.play('saut', true);
     }
 
