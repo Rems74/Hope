@@ -99,7 +99,9 @@ class Player {
         this.player.setVelocityX(300);
         this.player.setFlipX(false);
         if (this.player.body.onFloor()) {
-            this.player.play('marche', true)}
+            this.player.play('marche', true)
+
+        }
     }
 
     moveLeft(){

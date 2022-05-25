@@ -69,6 +69,8 @@ class scene extends Phaser.Scene {
         this.load.audio('cri','assets/sons/cri.mp3');
         this.load.audio('mood',['assets/sons/forest2.wav']);
         this.load.audio('cry','assets/sons/lamentation.wav');
+        this.load.audio('pas1','assets/sons/pas2.mp3');
+        this.load.audio('pas2','assets/sons/pas3.mp3');
 
     }
 
@@ -373,9 +375,10 @@ class scene extends Phaser.Scene {
         this.ambiance = this.sound.add('mood',{ loop: true, volume:1});
         if(this.temp === this.temp){
             this.ambiance.play()
-
-
         }
+
+        //this.marche = this.sound.add('pas1',{ loop: true, volume:1});
+
 //paralax
 
         this.platforms = map.createStaticLayer('Sol', tileset2);
@@ -586,8 +589,9 @@ class scene extends Phaser.Scene {
                 this.player.jump()
                 break;
             case this.cursors.left.isDown:
-                this.player.moveLeft()
+                this.player.moveLeft();
                 break;
+
             case this.cursors.right.isDown:
                 this.player.moveRight();
                 break;
@@ -597,6 +601,7 @@ class scene extends Phaser.Scene {
                  // break;
              default:
                  this.player.stop();
+                 //this.marche.stop();
 
         }}
 

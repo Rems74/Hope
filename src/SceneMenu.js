@@ -11,10 +11,16 @@ class SceneMenu extends Phaser.Scene{
         this.load.image('menu', 'assets/menu/Menu3.png');
         this.load.image('etoiles', 'assets/menu/etoiles menu.png');
         this.load.image('lune', 'assets/menu/lune menu.png');
+
+        this.load.audio('mood2',['assets/sons/forest1.mp3']);
     }
 
     create() {
 
+        this.ambiance2 = this.sound.add('mood2',{ loop: true, volume:1});
+        if(this.temp === this.temp){
+            this.ambiance2.play()
+        }
 
         const ui = this.add.image(0, 0, 'menu').setOrigin(0, 0).setPipeline('Light2D');
         this.add.image(0, 0, 'etoiles').setOrigin(0, 0);
@@ -35,6 +41,7 @@ class SceneMenu extends Phaser.Scene{
         playbutton.on("pointerup", () => {
             playbutton.setTexture('play')
             this.scene.start("playGame")
+            this.ambiance2.stop()
         })
 
         playbutton.on("pointerover",()=>{
@@ -47,6 +54,8 @@ class SceneMenu extends Phaser.Scene{
 
 
         this.clight=this.lights.addLight(100,100, 500).setColor(0xF0AF2F).setIntensity(3);
+
+
 
     }
 
