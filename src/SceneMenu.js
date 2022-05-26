@@ -13,6 +13,7 @@ class SceneMenu extends Phaser.Scene{
         this.load.image('lune', 'assets/menu/lune menu.png');
 
         this.load.audio('mood2',['assets/sons/forest1.mp3']);
+        this.load.audio('mood3',['assets/sons/music.mp3']);
     }
 
     create() {
@@ -20,6 +21,11 @@ class SceneMenu extends Phaser.Scene{
         this.ambiance2 = this.sound.add('mood2',{ loop: true, volume:1});
         if(this.temp === this.temp){
             this.ambiance2.play()
+        }
+
+        this.ambiance3 = this.sound.add('mood3',{ loop: true, volume:0.2});
+        if(this.temp === this.temp){
+            this.ambiance3.play()
         }
 
         const ui = this.add.image(0, 0, 'menu').setOrigin(0, 0).setPipeline('Light2D');
