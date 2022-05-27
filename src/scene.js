@@ -354,11 +354,7 @@ class scene extends Phaser.Scene {
 
         });
 
-
-
 //Braséros boss
-
-
 
         this.Holly = this.physics.add.group({
             allowGravity: false,
