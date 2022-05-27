@@ -89,6 +89,8 @@ class scene extends Phaser.Scene {
 
         const tileset2 = map.addTilesetImage('branches', 'tiles2');
 
+
+
         this.moon = map.createLayer('moon', tileset2);
 
         const mount= this.add.image(-800, -3500, 'mount').setOrigin(0, 0);
@@ -127,13 +129,23 @@ class scene extends Phaser.Scene {
             tileset2
         );
 
+        this.lianes= map.createLayer(
+            "lianes",
+            tileset2
+        );
 
-
+        this.lianes2= map.createLayer(
+            "lianes2",
+            tileset2
+        );
 
         this.boss = map.createLayer(
             "Boss",
             tileset2
         );
+
+
+
         this.player = new Player(this)
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
 
@@ -151,6 +163,8 @@ class scene extends Phaser.Scene {
         this.arbres3.setPipeline('Light2D');
         this.arbres2.setPipeline('Light2D');
         this.arbres1.setPipeline('Light2D');
+        this.lianes.setPipeline('Light2D');
+        this.lianes2.setPipeline('Light2D');
         mount.setPipeline('Light2D');
 
 
@@ -386,14 +400,21 @@ class scene extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
         this.platforms.setPipeline('Light2D');
 
-        this.moon.scrollFactorX=1.02;
-        this.arbres1.scrollFactorX=1.02;
-        this.arbres2.scrollFactorX=1.02;
-        this.arbres3.scrollFactorX=1.03;
-        this.arbres4.scrollFactorX=1.06;
-        this.feuille.scrollFactorX=1.08;
-        this.arbres5.scrollFactorX=1.06;
-        this.feuille2.scrollFactorX=1.08;
+        this.moon.scrollFactorX=1.08;
+        this.arbres1.scrollFactorX=1.07;
+        this.arbres1.scrollFactorY=1.03;
+        this.arbres2.scrollFactorX=1.06;
+        this.arbres2.scrollFactorY=1.05;
+        this.arbres3.scrollFactorX=1.05;
+        this.arbres3.scrollFactorY=1.03;
+        this.arbres4.scrollFactorX=1.04;
+        this.arbres4.scrollFactorY=1.02;
+        this.feuille.scrollFactorX=1.02;
+        this.feuille.scrollFactorY=1.02;
+        this.arbres5.scrollFactorX=1.02;
+        this.arbres4.scrollFactorY=1.01;
+        this.feuille2.scrollFactorX=1.02;
+        this.feuille2.scrollFactorY=1.02;
     }
 
 
