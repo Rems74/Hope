@@ -382,7 +382,7 @@ class scene extends Phaser.Scene {
         this.physics.add.collider(this.player.player, this.collide);
 
 //Musique
-        this.ambiance = this.sound.add('mood',{ loop: true, volume:1});
+        this.ambiance = this.sound.add('mood',{ loop: true, volume:0.5});
         if(this.temp === this.temp){
             this.ambiance.play()
         }

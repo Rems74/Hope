@@ -13,17 +13,17 @@ class SceneMenu extends Phaser.Scene{
         this.load.image('lune', 'assets/menu/lune menu.png');
 
         this.load.audio('mood2',['assets/sons/forest1.mp3']);
-        this.load.audio('mood3',['assets/sons/music.mp3']);
+        this.load.audio('mood3',['assets/sons/Full Ambiance.wav']);
     }
 
     create() {
 
-        this.ambiance2 = this.sound.add('mood2',{ loop: true, volume:1});
+        this.ambiance2 = this.sound.add('mood2',{ loop: true, volume:0.5});
         if(this.temp === this.temp){
             this.ambiance2.play()
         }
 
-        this.ambiance3 = this.sound.add('mood3',{ loop: true, volume:0.2});
+        this.ambiance3 = this.sound.add('mood3',{ loop: true, volume:1});
         if(this.temp === this.temp){
             this.ambiance3.play()
         }
@@ -46,7 +46,7 @@ class SceneMenu extends Phaser.Scene{
 
         playbutton.on("pointerup", () => {
             playbutton.setTexture('play')
-            this.scene.start("playGame")
+            this.scene.start("intro")
             this.ambiance2.stop()
         })
 
