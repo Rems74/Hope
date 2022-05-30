@@ -225,7 +225,7 @@ class scene extends Phaser.Scene {
         this.eyesT.setImmovable(false);
 
 
-        this.tir()
+
 
         this.cameras.main.startFollow(this.player.player,false);
 
@@ -353,6 +353,31 @@ class scene extends Phaser.Scene {
             this.Hands3.add(hand3);
 
         });
+//switchcam
+
+        const cam = map.getObjectLayer('camera')
+        cam.objects.forEach(objData=> {
+            const {x = 0, y = 0, name} = objData
+
+            switch (name) {
+                case 'interupteur': {
+                    this.cam1 = this.physics.add.sprite(x, y, "cube").setOrigin(0, 0)
+                    this.cam1.setDisplaySize(56, 500);
+                    this.cam1.setVisible(false)
+                    this.cam1.setImmovable(true);
+                    this.cam1.body.setAllowGravity(false);
+                    break;
+                }
+                case 'cameran': {
+                    this.cs1 = this.physics.add.sprite(x, y, "cube").setOrigin(0, 0)
+                    this.cs1.setDisplaySize(1, 1);
+                    this.cs1.setVisible(false)
+                    this.cs1.setImmovable(true);
+                    this.cs1.body.setAllowGravity(false);
+                    break;
+                }
+            }
+        })
 
 //Braséros boss
 
@@ -411,6 +436,8 @@ class scene extends Phaser.Scene {
         this.arbres4.scrollFactorY=1.01;
         this.feuille2.scrollFactorX=1.02;
         this.feuille2.scrollFactorY=1.02;
+
+        this.Gestioncam(this.player.player)
     }
 
 
@@ -547,6 +574,20 @@ class scene extends Phaser.Scene {
         console.log(this.bosslife)
     }
 
+
+    Gestioncam(player){
+        let me = this;
+        // les tableau sont donnée comme des coordonnée soit x puis y
+        // tableau 1.2
+        this.physics.add.overlap(player, this.cam1, function () {
+            me.cam1.body.enable = false;
+            me.cameras.main.startFollow(me.cs1,true, 1, 1);
+            me.cameras.main.zoomTo(0.6, 500);
+            me.tir()
+        })
+    }
+
+
     update() {
 
         this.sl.x = this.currentSaveX;
@@ -607,6 +648,11 @@ class scene extends Phaser.Scene {
                 break;
             case this.cursors.left.isDown:
                 this.player.moveLeft();
+                break;
+
+                case this.cursors.down.isDown:
+                this.player.player.x = 1088;
+                this.player.player.y = -256;
                 break;
 
             case this.cursors.right.isDown:

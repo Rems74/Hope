@@ -63,6 +63,39 @@
         }, 
         {
          "draworder":"topdown",
+         "id":26,
+         "name":"camera",
+         "objects":[
+                {
+                 "height":394,
+                 "id":372,
+                 "name":"interupteur",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":36,
+                 "x":1450,
+                 "y":-464
+                }, 
+                {
+                 "height":0,
+                 "id":373,
+                 "name":"cameran",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1984,
+                 "y":-916
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":10,
          "name":"Hand2",
          "objects":[
@@ -680,6 +713,18 @@
                  "width":64,
                  "x":3776,
                  "y":-1920
+                }, 
+                {
+                 "gid":37,
+                 "height":64,
+                 "id":374,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":1472,
+                 "y":-128
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2160,7 +2205,7 @@
                 }],
          "compression":"",
          "encoding":"base64",
-         "height":64,
+         "height":48,
          "id":16,
          "name":"arbres1",
          "opacity":1,
@@ -3303,8 +3348,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":26,
- "nextobjectid":372,
+ "nextlayerid":27,
+ "nextobjectid":377,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.1",
