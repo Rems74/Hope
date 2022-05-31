@@ -562,18 +562,6 @@
                 {
                  "gid":36,
                  "height":64,
-                 "id":196,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":64,
-                 "x":1280,
-                 "y":-128
-                }, 
-                {
-                 "gid":36,
-                 "height":64,
                  "id":199,
                  "name":"",
                  "rotation":0,

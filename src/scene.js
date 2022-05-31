@@ -469,6 +469,8 @@ class scene extends Phaser.Scene {
         if(this.bosslife === 0){
             this.shooter1.setVisible(false)
             this.shooter2.setVisible(false)
+            this.shootl1.setVisible(false)
+            this.shootl2.setVisible(false)
             this.bosst.stop()
             this.bossd.play()
             this.end = this.time.addEvent({
@@ -677,7 +679,7 @@ class scene extends Phaser.Scene {
                 this.player.moveLeft();
                 break;
 
-                case this.cursors.down.isDown:
+            case this.cursors.down.isDown:
                 this.player.player.x = 1088;
                 this.player.player.y = -256;
                 break;
@@ -686,9 +688,6 @@ class scene extends Phaser.Scene {
                 this.player.moveRight();
                 break;
 
-                 // case this.cursors.down.isDown:
-                 // this.bosslife=0;
-                 // break;
              default:
                  this.player.stop();
                  //this.marche.stop();
