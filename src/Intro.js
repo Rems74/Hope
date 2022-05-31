@@ -12,6 +12,8 @@ class Intro extends Phaser.Scene {
         for (let k=1;k<=4;k++){
             this.load.image('intro-'+k,'assets/anim/intro/txt'+k+'.png')
         }
+
+        this.load.audio('introd',['assets/sons/Cinématique intro.wav']);
     }
 
     create(){
@@ -23,6 +25,12 @@ console.log('truite')
                 {key:'intro-1'},
                 {key:'intro-1'},
                 {key:'intro-1'},
+                {key:'intro-1'},
+                {key:'intro-1'},
+                {key:'intro-1'},
+                {key:'intro-2'},
+                {key:'intro-2'},
+                {key:'intro-2'},
                 {key:'intro-2'},
                 {key:'intro-2'},
                 {key:'intro-2'},
@@ -38,12 +46,19 @@ console.log('truite')
             repeat: 0});
         this.anims = this.add.sprite(0,0,'intro-1').setOrigin(0,0);
         this.anims.play('intro');
+
+        this.story = this.sound.add('introd',{ loop: false, volume:1});
+        if(this.temp === this.temp){
+            this.story.play()
+        }
+
         console.log('saumon')
 
         this.letsgo = this.time.addEvent({
-            delay: 18000,
+            delay: 24000,
             callback: ()=>{
                 this.scene.start("playGame")
+                this.story.stop()
             },
 
             loop: false,

@@ -71,6 +71,11 @@ class scene extends Phaser.Scene {
         this.load.audio('cry','assets/sons/lamentation.wav');
         this.load.audio('pas1','assets/sons/pas2.mp3');
         this.load.audio('pas2','assets/sons/pas3.mp3');
+        this.load.audio('mood3',['assets/sons/Full Ambiance.wav']);
+        this.load.audio('suite',['assets/sons/Ambiance Suite.wav']);
+        this.load.audio('bosst',['assets/sons/Boss loop.wav']);
+        this.load.audio('bossi',['assets/sons/intro boss.wav']);
+        this.load.audio('bossd',['assets/sons/Mort du boss.wav']);
 
     }
 
@@ -412,6 +417,15 @@ class scene extends Phaser.Scene {
             this.ambiance.play()
         }
 
+        this.ambiance2 = this.sound.add('mood3',{ loop: true, volume:1});
+        if(this.temp === this.temp){
+            this.ambiance2.play()
+        }
+
+        this.bossi = this.sound.add('bossi',{ loop: false, volume:2});
+        this.bosst = this.sound.add('bosst',{ loop: true, volume:2});
+        this.bossd = this.sound.add('bossd',{ loop: false, volume:2});
+
         //this.marche = this.sound.add('pas1',{ loop: true, volume:1});
 
 //paralax
@@ -453,8 +467,12 @@ class scene extends Phaser.Scene {
             this.eyesT.y = this.shooter2.y
         }
         if(this.bosslife === 0){
+            this.shooter1.setVisible(false)
+            this.shooter2.setVisible(false)
+            this.bosst.stop()
+            this.bossd.play()
             this.end = this.time.addEvent({
-                delay: 3000,
+                delay: 8000,
                 callback: ()=>{
                     this.scene.start("victoire")
                 },
@@ -467,7 +485,7 @@ class scene extends Phaser.Scene {
 
             this.balle = new Balle(this);
             this.Reset = this.time.addEvent({
-                delay: 1500*this.bosslife,
+                delay: 1300*this.bosslife,
                 callback: ()=>{
                     this.tir()
                     console.log("la")
@@ -584,6 +602,15 @@ class scene extends Phaser.Scene {
             me.cameras.main.startFollow(me.cs1,true, 1, 1);
             me.cameras.main.zoomTo(0.6, 500);
             me.tir()
+            me.ambiance2.stop()
+            me.bossi.play()
+            me.switchm=me.time.addEvent({
+                delay: 11000,
+                callback: ()=>{
+                    me.bosst.play()
+                },
+                loop: false,
+            })
         })
     }
 

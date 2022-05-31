@@ -48,6 +48,7 @@ class SceneMenu extends Phaser.Scene{
             playbutton.setTexture('play')
             this.scene.start("intro")
             this.ambiance2.stop()
+            this.ambiance3.stop()
         })
 
         playbutton.on("pointerover",()=>{

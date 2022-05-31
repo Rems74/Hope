@@ -8,6 +8,7 @@ class SceneVictoire extends Phaser.Scene {
         for (let v = 1; v <= 3; v++) {
             this.load.image('v' + v, 'assets/anim/victoire/end' + v + '.png')
         }
+        this.load.audio('vic',['assets/sons/Victoire de l heroine.wav']);
         //this.load.image('merci', 'assets/images/merci.png');
     }
 
@@ -31,6 +32,11 @@ class SceneVictoire extends Phaser.Scene {
         });
         this.anims = this.add.sprite(0,0,'plebe').setOrigin(0,0);
         this.anims.play('plebe');
+
+        this.victoire = this.sound.add('vic',{ loop: false, volume:1});
+        if(this.temp === this.temp){
+            this.victoire.play()
+        }
 
         //this.merci=this.add.image(680, 330, 'merci').setOrigin(0, 0);
 
