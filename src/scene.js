@@ -14,8 +14,10 @@ class scene extends Phaser.Scene {
         this.load.image('tiles2', 'assets/tilesets/les-branches-la.png');
         this.load.image('shooter', 'assets/images/Shooter.png');
         this.load.image('blue','assets/images/blue.png');
+        this.load.image('green','assets/images/green.png');
         this.load.image('stars','assets/images/etoiles2.png');
         this.load.image('mount','assets/images/montagne-la.png');
+        this.load.image('flare','assets/images/flame2.png');
 
 
 
@@ -143,6 +145,14 @@ class scene extends Phaser.Scene {
             "lianes2",
             tileset2
         );
+
+        this.cible = this.physics.add.sprite(1984, -682,'green').setOrigin(0, 0);
+        this.cible.setSize(500,500)
+        this.cible.body.setAllowGravity(false)
+        this.cible.setImmovable(true);
+        this.cible.setVisible(false);
+
+        this.partss = this.add.particles('flare');
 
         this.boss = map.createLayer(
             "Boss",
@@ -452,10 +462,38 @@ class scene extends Phaser.Scene {
         this.feuille2.scrollFactorY=1.02;
 
         this.Gestioncam(this.player.player)
+
+
+
     }
 
 
+    particles(holly){
 
+
+        this.particlesEmits= this.partss.createEmitter({
+            x: holly.x,
+            y: holly.y+60,
+            alpha: {start: 0.75, end: 0.12},
+            speed: 5,
+            lifespan: {min: 300, max: 400 * 2},
+            scale: { min: 0.4, max: 0 },
+            quantity: 0.1,
+            accelerationY: {min: -5, max: 5},
+            moveToX: this.cible.x,
+            moveToY: this.cible.y,
+            angle: {min: 0, max: 360},
+            frequency: 6,
+            speedY: {min: -5, max: 5},
+            speedX: {min: -5, max: 5},
+            gravityY: 300,
+            blendMode: 'ADD'
+
+        })
+
+        this.partss.setDepth(1);
+
+    }
 
     tir() {
 
@@ -579,6 +617,9 @@ class scene extends Phaser.Scene {
         this.lights.addLight(Holly.x, Holly.y-50, 500).setColor(0xF0AF2F).setIntensity(2);
         this.flameA = this.add.sprite(Holly.x, Holly.y-50, 'fire1').setOrigin(0,0).setVisible(true);
         this.flameC = this.add.sprite(Holly.x, Holly.y-50, 'fire2').setOrigin(0,0).setVisible(false);
+
+        this.particles(Holly)
+
         this.cameras.main.shake(1500,0.004);
         this.flameA.play('fire1');
         this.flameC.play('fire2');
@@ -679,10 +720,10 @@ class scene extends Phaser.Scene {
                 this.player.moveLeft();
                 break;
 
-            case this.cursors.down.isDown:
-                this.player.player.x = 1088;
-                this.player.player.y = -256;
-                break;
+            // case this.cursors.down.isDown:
+            //     this.player.player.x = 1088;
+            //     this.player.player.y = -256;
+            //     break;
 
             case this.cursors.right.isDown:
                 this.player.moveRight();
