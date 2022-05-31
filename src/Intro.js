@@ -79,7 +79,7 @@ console.log('truite')
         console.log('saumon')
 
         this.letsgo = this.time.addEvent({
-            delay: 42000,
+            delay: 41000,
             callback: ()=>{
                 this.scene.start("playGame")
                 this.story.stop()
