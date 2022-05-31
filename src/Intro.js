@@ -13,6 +13,10 @@ class Intro extends Phaser.Scene {
             this.load.image('intro-'+k,'assets/anim/intro/txt'+k+'.png')
         }
 
+        this.load.image('intro-9','assets/anim/intro/story n1.png')
+        this.load.image('intro-10','assets/anim/intro/story n2.png')
+        this.load.image('intro-11','assets/anim/intro/story n3.png')
+
         this.load.audio('introd',['assets/sons/Cinématique intro.wav']);
     }
 
@@ -28,6 +32,12 @@ console.log('truite')
                 {key:'intro-1'},
                 {key:'intro-1'},
                 {key:'intro-1'},
+                {key:'intro-9'},
+                {key:'intro-9'},
+                {key:'intro-9'},
+                {key:'intro-9'},
+                {key:'intro-9'},
+                {key:'intro-9'},
                 {key:'intro-2'},
                 {key:'intro-2'},
                 {key:'intro-2'},
@@ -35,6 +45,20 @@ console.log('truite')
                 {key:'intro-2'},
                 {key:'intro-2'},
                 {key:'intro-2'},
+                {key:'intro-10'},
+                {key:'intro-10'},
+                {key:'intro-10'},
+                {key:'intro-10'},
+                {key:'intro-10'},
+                {key:'intro-10'},
+                {key:'intro-10'},
+                {key:'intro-11'},
+                {key:'intro-11'},
+                {key:'intro-11'},
+                {key:'intro-11'},
+                {key:'intro-11'},
+                {key:'intro-11'},
+                {key:'intro-11'},
                 {key:'intro-3'},
                 {key:'intro-4'},
                 {key:'intro-5'},
@@ -55,7 +79,7 @@ console.log('truite')
         console.log('saumon')
 
         this.letsgo = this.time.addEvent({
-            delay: 24000,
+            delay: 42000,
             callback: ()=>{
                 this.scene.start("playGame")
                 this.story.stop()
