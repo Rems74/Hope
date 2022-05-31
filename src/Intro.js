@@ -47,7 +47,7 @@ console.log('truite')
         this.anims = this.add.sprite(0,0,'intro-1').setOrigin(0,0);
         this.anims.play('intro');
 
-        this.story = this.sound.add('introd',{ loop: false, volume:1});
+        this.story = this.sound.add('introd',{ loop: false, volume:3});
         if(this.temp === this.temp){
             this.story.play()
         }
