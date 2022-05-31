@@ -417,14 +417,14 @@ class scene extends Phaser.Scene {
             this.ambiance.play()
         }
 
-        this.ambiance2 = this.sound.add('mood3',{ loop: true, volume:1});
+        this.ambiance2 = this.sound.add('mood3',{ loop: true, volume:3});
         if(this.temp === this.temp){
             this.ambiance2.play()
         }
 
-        this.bossi = this.sound.add('bossi',{ loop: false, volume:2});
-        this.bosst = this.sound.add('bosst',{ loop: true, volume:2});
-        this.bossd = this.sound.add('bossd',{ loop: false, volume:2});
+        this.bossi = this.sound.add('bossi',{ loop: false, volume:3});
+        this.bosst = this.sound.add('bosst',{ loop: true, volume:3});
+        this.bossd = this.sound.add('bossd',{ loop: false, volume:3});
 
         //this.marche = this.sound.add('pas1',{ loop: true, volume:1});
 
