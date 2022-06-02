@@ -42,18 +42,6 @@ class SceneVictoire extends Phaser.Scene {
             this.victoire.play()
         }
 
-        //this.merci=this.add.image(680, 330, 'merci').setOrigin(0, 0);
-
-        // this.tweens.add({
-        //     targets: this.merci,
-        //     alphaTopLeft: { value: 1, duration: 5000, ease: 'Power1' },
-        //     alphaBottomRight: { value: 1, duration: 10000, ease: 'Power1' },
-        //     alphaBottomLeft: { value: 1, duration: 5000, ease: 'Power1', delay: 5000 },
-        //     yoyo: false,
-        //     loop: 0
-
-       // });
-
 
     }
 }
